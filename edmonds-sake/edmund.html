@@ -36,9 +36,10 @@ body {
 (function(){
   var st=document.getElementById('stage'), pw=document.getElementById('pw');
   function fit(){
-    var k=Math.min((innerWidth-16)/540,(innerHeight-16)/536,2), f=Math.max(k,1);
+    var k=Math.min((innerWidth-16)/540,(innerHeight-40)/538,2), f=Math.max(k,1);
     st.style.width=Math.round(540*k)+'px'; st.style.height=Math.round(510*k)+'px';
     pw.style.fontSize=(12*f)+'px'; pw.style.padding=(3*f)+'px '+(8*f)+'px';
+    st.style.marginBottom=Math.round(4*k+24*f)+'px'; // ruimte voor het paswoord bij het centreren
   }
   fit(); addEventListener('resize',fit);
 })();
