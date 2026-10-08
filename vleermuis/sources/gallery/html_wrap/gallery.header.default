@@ -1,0 +1,11 @@
+<?php
+includeHtmlWrap("wrapper.header");
+?>
+
+<table width=100% border=0>
+<tr>
+<td><p class="titel">&nbsp;Fotoalbum</p></td>
+</tr>
+<tr>
+<td valign="top">
+

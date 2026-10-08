@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Mijn eerste draadloos netwerk! | scene24.net</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="../assets/favicon.ico">
+</head>
+<body>
+<div id="content">
+<header class="kop">
+<a class="logo" href="../index.html" title="scene24.net"><img src="../assets/logo.gif" alt="scene24.net" width="200" height="70"></a>
+<nav class="menu"><a href="../artikels.html" aria-current="page">Artikels</a> <a href="../films.html">Films</a></nav>
+</header>
+<article class="item" id="post-492">
+<h1 class="title">Mijn eerste draadloos netwerk!</h1>
+<p class="subtitle">zondag 9 november 2003 | Nerdisme</p>
+<p>Bij wijze van proefproject heb ik in mijn ouderlijke huis van een draadloos netwerkje voorzien. Ik wist helemaal niet waaraan ik me kon verwachten. Zou de verbinding wel stabiel genoeg zijn? Hoe zit het met beveiliging, configuratie,&#8230; ? Enfin, bleek het achteraf een flop te zijn, dan was het toch op kosten van mama en papa, begrijp je. Maar van een flop was allesbehalve sprake! Zowel de installatie als configuratie van de draadloze router in het netwerk was een fluitje van een cent. De kwaliteit van de verbinding is uitstekend, nauwelijks te onderscheiden van good old <span class="caps">UTP</span>. One happy wireless family erbij! Volgende week haal ik een tweede wireless setje voor mijn eigen stulp.</p>
+<p><span id="more-492"></span>
+<p>Ik heb gekozen voor draadloze apparatuur van U.S. Robotics: de <a href="https://web.archive.org/web/2003/http://www.usr.com/support/product-template.asp?prod=8054"><span class="caps">USR8054 802</span>.11g Wireless Turbo Router</a> met bijbehorende kaarten voor in de portables. Op het gebied van snelheid en bereik is dit zowat de beste keus  momenteel, althans volgens een aantal recente reviews op het net.</p>
+<p>De installatie van het wireless access point verliep identiek aan de installatie van een gewone router. Kort samengevat: van het kabelmodem naar de router, en van daaruit naar de verschillende clients, met of zonder draad. De configuratie verloopt volledig via een webinterface. Je surft gewoon naar het lokale IP adres van de router en je krijgt een mini-site’tje te zien waar je alles kan instellen. Handig! </p>
+<p>Eigenlijk kan je onmiddellijk daarna beginnen surfen en netwerken. Ik denk dat bij veel gebruikers hier de kous ook daadwerkelijk af is. Het is daarom een schande dat fabrikanten zoals <span class="caps">U.S.</span> Robotics thuisgebruikers niet inlichten over de veiligheidsrisico’s die draadloos internetten inhoudt. Zonder beveiligingsmaatregelen kan elke wildvreemde immers zomaar binnen het uitzendbereik van je access point komen en je internetconnectie aftappen of de computers in het netwerk binnendringen. Er bestaan zelfs nozems die in een auto, gewapend met een draagbare computer, door de stadsstraten slingeren op zoek naar (kraakbare) draadloze netwerken (de zogenaamde <em><a title="Wireless Security Explained" href="https://web.archive.org/web/2003/http://security-protocols.com/article.php?sid=1504&amp;amp;foo=Wireless%20LAN%20Attacks%20Explained">wardrivers</a></em>). Met tooltjes als <a href="https://web.archive.org/web/2003/http://www.kismetwireless.net">Kismet</a> en <a href="https://web.archive.org/web/2003/http://airsnort.shmoo.com/">Airsnort</a> zijn zelfs goed beveiligde netwerken te kraken. Op het <a title=" Dispelling the Myth of Wireless Security" href="https://web.archive.org/web/2003/http://www.oreillynet.com/pub/a/wireless/excerpt/wirlsshacks_chap1/">Wireless Center van O’Reilly</a> staat stap-voor-stap beschreven hoe eenvoudig – nouja &#8211; dat wel is. Indrukwekkend! </p>
+<p>Gelukkig was ik op de hoogte van deze risico’s. Op het net (want in de manual geen woord!) ging ik op zoek naar wat er precies moest gebeuren om deze wardrivers te snel af te zijn. Hieronder zie je mijn lijstje met voorzorgsmaatregelen. Ik hoop dat ik niets over het hoofd heb gezien. </p>
+<p><strong>1. 128-bit <span class="caps">WEB</span>-encryptie</strong><br />
+Het <span class="caps">WEP</span> protocol (Wired equivalent privacy) encrypteert draadloos verzonden gegevens met een 64, 128 of zelfs 256-bit (enkel U.S. Robotics) sleutel. Elke client in het netwerk moet deze sleutel kennen om het netwerkverkeer te kunnen decoderen. Een 64-bit sleutel is binnen een kwartiertje te kraken en is dus geen optie. Een 128-bit sleutel, daar doen ze toch al een uurtje of twee over. <span class="caps">WEP</span>-encryptie alleen is dus niet voldoende! </p>
+<p><strong>2. <span class="caps">MAC</span> address control list</strong><br />
+In de router kan je instellen welke <span class="caps">MAC</span> adressen toegelaten worden op het netwerk. Elke <span class="caps">LAN</span> kaart of wireless kaart heeft zo’n uniek <span class="caps">MAC</span> adres. Helaas bestaan ook tools om deze adressen te <em>faken</em>, waardoor ook deze beveiligingsmaatregel op zich niet voldoende is.</p>
+<p><strong>3. <span class="caps">DHCP</span> uitschakelen</strong><br />
+Het is belangrijk om de <span class="caps">DHCP</span> functie (Dynamic Host Protocol Server) van de draadloze router uit te schakelen. Een <span class="caps">DHCP</span> server zorgt ervoor dat iedereen die zich op een netwerk aanmeldt automatisch een IP-adres verkrijgt. Dus ook een eventuele indringer. Manueel instellen is dus de boodschap: IP, subnetmasker, gateway, <span class="caps">DNS</span>, WINS,&#8230; Gelukkig moet je dit slechts eenmalig doen op alle computers.</p>
+<p><strong>4. <span class="caps">SSID</span> uitschakelen</strong><br />
+Een draadloze router zendt standaard een signaal uit met de naam van de toegangspoort van het netwerk (SSID). Dat is de naam die op de laptop of pocket pc verschijnt van de persoon die door jouw straat heen loopt om te kijken of hij een signaal op kan vangen. Als eigenaar kun je zelf een naam verzinnen voor de toegangspoort en deze eenmalig instellen op de computers waarmee je wilt werken op jouw draadloze netwerk. Vervolgens kan het verzenden van de naam van de toegangspoort achterwege blijven. Dan kan een indringer van buitenaf niet zien of er zich bij jouw een draadloos netwerk bevindt. Maar er bestaan dan weer bepaalde tooltjes&#8230; inderdaad.</p>
+<p><strong>5. Paswoorden</strong><br />
+Natuurlijk heb ik de gegevens om in te loggen op de draadloze router gewijzigd. Standaard zat er op mijn U.S. Robotics zelfs helemaal geen paswoord! Dat zou dus betekenen dat elke indringer de instellingen van de router zomaar kan aanpassen. Je hoeft er immers gewoon naar te surfen! </p>
+<p><strong>6. Verstandig delen</strong><br />
+Je deelt natuurlijk niet je volledige harde schijf op het netwerk, maar slechts één of twee mapjes, en dan nog liefst enkel met lees-rechten. Delen met paswoordbeveiliging vond ik toch iets te veel van het goede.</p>
+<p>Het komt er op neer dat een draadloos netwerk steeds in risico zal blijven inhouden. Geen enkele maatregel is 100% hackproof. Opletten dus! </p>
+<p>Er bestaan nog andere mogelijkheden zoals het instellen van een <span class="caps">RADIUS</span> server en <span class="caps">WPA</span>, maar daar weet ik eigenlijk niet zoveel over. Tips zijn natuurlijk altijd welkom.</p>
+</article>
+<section class="reacties"><h3>Reacties</h3>
+<div class="comment"><p class="commentheader">@marco op 7 april 2004</p><p>Ik heb zelf ook gekozen voor een draadloos netwerk, maar dan zonder router. Ik heb dus een wireless kaart (PCI) met antenne en een kaartje voor de laptop. Het zou zo moeten werken.  Je moet alleen wel de PC aan hebben. Helaas, wat ik ook probeer, op beide stations heb ik groen licht een goede verbinding maar hij ziet niks, zowel op de PC als laptop niet. Misschien heb jij een suggestie?</p></div>
+<div class="comment"><p class="commentheader">Fre op 18 april 2004</p><p>Als de verbinding ok is met je router en je kan surfen, maar je &#8216;ziet&#8217; de andere computer niet, dan ligt het probleem wellicht aan je netwerk-instellingen. Kijk eens of je wel in dezelfde &#8216;workgroup&#8217; actief bent, of misschien of je firewalls op de portable en de PC niet in de weg staan?</p></div>
+<div class="comment"><p class="commentheader">Petzl op 16 mei 2004</p><p>Meer info over draadloze netwerken en wardrivers vind je op <a href="https://web.archive.org/web/2003/http://www.wardrivers.be">http://www.wardrivers.be</a></p></div>
+</section>
+<nav class="bladeren"><a class="vorige" href="n491.html">&laquo; Kosmische wetmatigheden</a><a class="volgende" href="495.html">Gallery logo contest &raquo;</a></nav><div class="itemDivider">&nbsp;</div>
+<footer id="footer">
+<p><img src="../assets/madeonamac.gif" alt="Made on a Mac" width="88" height="31"></p>
+<p>Archief van scene24.net, het weblog van Frederik Vandaele (2002-2012).</p>
+</footer>
+</div>
+</body>
+</html>

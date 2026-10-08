@@ -1,0 +1,10 @@
+# Flashbacks: niet indexeren.
+# HTML-pagina's blijven toegankelijk, zodat zoekmachines de
+# noindex-tag in elke pagina kunnen lezen. Al de rest (afbeeldingen,
+# pdf's, geluid, Flash, bronbestanden) wordt niet gecrawld.
+User-agent: *
+Allow: /*.html$
+Allow: /*.htm$
+Allow: /$
+Allow: /*/$
+Disallow: /

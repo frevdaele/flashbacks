@@ -1,0 +1,91 @@
+body 		{
+		scrollbar-face-color: #333366; 
+		scrollbar-shadow-color: #333366; 
+		scrollbar-highlight-color: #333366; 
+		scrollbar-3dlight-color: #333366; 
+		scrollbar-darkshadow-color: #333366; 
+		scrollbar-track-color: #9999cc; 
+		scrollbar-arrow-color: #FFFFFF;
+		background : #FFFFFF url(http://users.telenet.be/vleermuis/main/background.jpg) no-repeat fixed right bottom;
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+		font-size: 11px;
+		color: #333333;}
+
+p, td 		{font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		font-weight: bolder;
+		color: #333366;}
+
+a 		{color: #333366;
+		text-decoration: none;}
+
+a:hover 		{color: #9999cc;
+		text-decoration: none;}
+
+a:active 		{color: #9999CC;
+		text-decoration: none;}
+
+
+.titel		{background-color: #333366;		
+		font-size: 18px;
+		line-height: 22px;
+		font-weight: bold; 
+		color: #FFFFFF;}
+
+.title  		{font-size: 14px; 
+		color: #9999cc;
+	  	font-weight: bold; 
+		margin-bottom:14px;}
+
+.desc  		{font-size: 11px; }
+
+.caption 		{font-size: 11px;
+		font-weight: normal;}
+
+.error  		{color: red; 
+	  	font-size: 11px; }
+
+.headbox		{}
+
+.head 		{font-size: 11px; 
+	 	 font-weight: bold; }
+
+.bread 		{font-size: 11px; }
+
+.nav   		{font-size: 11px; 
+		color: #666666;}
+
+.admin 		{font-size: 11px; 
+	 	 font-weight: bold; }
+
+.fineprint 		{font-size: 11px;
+		font-weight: normal;
+		letter-spacing: 0px; }
+
+.popuphead 	{font-size: 16px;
+		font-weight: bold;}
+
+.popup 		{font-size: 11px;}
+
+.editlink 		{font-size: 11px;}
+
+.copy 		{font-size: 9px;
+		font-weight: normal;
+		letter-spacing: 0px; }
+
+input		{
+		height: 22px;		
+		border: #333366 1px solid;  
+		vertical-align: middle; 		
+		color: #333366; 
+		font-family: Verdana, Arial, Helvetica, sans-serif; 
+		font-size: 12px; 
+		line-height: 16px;}
+
+textarea	{
+		border: #333366 1px solid;  
+		vertical-align: middle; 		
+		color: #333366; 
+		font-family: Verdana, Arial, Helvetica, sans-serif; 
+		font-size: 12px; 
+		line-height: 16px;}

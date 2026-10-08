@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Blog Panik | scene24.net</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="../assets/favicon.ico">
+</head>
+<body>
+<div id="content">
+<header class="kop">
+<a class="logo" href="../index.html" title="scene24.net"><img src="../assets/logo.gif" alt="scene24.net" width="200" height="70"></a>
+<nav class="menu"><a href="../artikels.html" aria-current="page">Artikels</a> <a href="../films.html">Films</a></nav>
+</header>
+<article class="item" id="post-n650">
+<h1 class="title">Blog Panik</h1>
+<p class="subtitle">maandag 19 april 2004 | Zomaar</p>
+<p>Het was vandaag even schrikken toen ik deze pagina versierd zag met talloze MySQL en PHP errors. Dat gebeurt wel vaker, maar meestal overkomt je zoiets door je eigen domme schuld en kan je het even gemakkelijk weer ongedaan maken. Deze keer zat <em>ik</em> er echter voor niets tussen.</p>
+
+<p><a title="Hostrocket" href="https://web.archive.org/web/2004/http://www.hostrocket.com">Mijn provider</a> deed alsof z&#8217;n neus bloedde: &#8220;All systems are up and running &#8212; smoothly.&#8221; Dan maar phpMyAdmin erbij gehaald. Daar stond de diagnose in griezelige kleine lettertjes te lezen: &#8220;<em>Error code 145: Table was marked as crashed.</em>&#8221; Slik. Was mijn weblog gehackt? Had een malafide snoodaard of een of andere wereldwijde terreurorganisatie mijn kostbare berichten gewist? Gelukkig wist de Nucleus-crew raad in de vorm van de volgende eenvoudige MySQL opdracht: &#8220;REPAIR TABLE nucleus_item&#8221;. </p>
+
+<p>Dit was de uitleg van de <a title="Karma Universe" href="https://web.archive.org/web/2004/http://demuynck.org/">Nucleus-auteur</a>:</p>
+
+<blockquote><p>Het komt er eigenlijk op neer dat MySQL iets heeft proberen te doen met de tabel, maar dat het tijdens dat &#8216;iets&#8217; fout liep, zodat de tabel (en de bijhorende indexen) corrupt raakte. Een repair brengt de tabel en de indexen voor zover mogelijk terug in orde. Als je pech hebt, ben je een paar items kwijt.</p>
+</blockquote>
+
+<p>Voila, dat weten we dan ook weer. Niets aan de hand. Ik kan met een gerust hart mijn weblog opnieuw links laten liggen (I know, I know&#8230;) ;-)</p>
+</article>
+<section class="reacties"><h3>Reacties</h3>
+<div class="comment"><p class="commentheader">elja op 20 april 2004</p><p>pfew, you're back. :D</p></div>
+</section>
+<nav class="bladeren"><a class="vorige" href="644.html">&laquo; Switchen is niet gemakkelijk</a><a class="volgende" href="n634.html">Lente... &raquo;</a></nav><div class="itemDivider">&nbsp;</div>
+<footer id="footer">
+<p><img src="../assets/madeonamac.gif" alt="Made on a Mac" width="88" height="31"></p>
+<p>Archief van scene24.net, het weblog van Frederik Vandaele (2002-2012).</p>
+</footer>
+</div>
+</body>
+</html>

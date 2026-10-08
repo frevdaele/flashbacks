@@ -1,0 +1,241 @@
+<HTML>
+<HEAD>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<TITLE>Mig Documentation - mig_cf.html</TITLE>
+<LINK REV="made" HREF="mailto:root@law.uucp">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+<!--
+
+<UL>
+
+	<UL>
+
+		<LI><A HREF="#general">General</A></LI>
+		<LI><A HREF="#remarks and blank lines">Remarks and blank lines</A></LI>
+		<LI><A HREF="#bulletins">Bulletins</A></LI>
+		<LI><A HREF="#image comments">Image Comments</A></LI>
+		<LI><A HREF="#folder icons">Folder Icons</A></LI>
+		<LI><A HREF="#perfolder template">Per-folder Template</A></LI>
+		<LI><A HREF="#perfolder page title">Per-folder Page Title</A></LI>
+		<LI><A HREF="#perfolder maintainer address">Per-folder Maintainer Address</A></LI>
+		<LI><A HREF="#perfolder column settings">Per-folder Column Settings</A></LI>
+		<LI><A HREF="#hidden items">Hidden Items</A></LI>
+		<LI><A HREF="#sort order">Sort Order</A></LI>
+		<LI><A HREF="#security">Security</A></LI>
+	</UL>
+
+</UL>
+-->
+<!-- INDEX END -->
+
+<P>$Id: mig_cf.pod,v 1.6 2002/05/27 08:27:46 tangledhelix Exp $</P>
+<P>
+<H2><A NAME="general">General</A></H2>
+<P>This document aims to explain how <EM>mig.cf</EM> works and what it is.</P>
+<P>Each folder under the <EM>album</EM> subdirectory can optionally have a <EM>mig.cf</EM>
+file in it.  This file contains things like image comments, a list of
+hidden items (if any) and so on.</P>
+<P>The format is borrowed from the config file format of Apache, and is sort
+of similar to HTML.  Hopefully this means that it will be simple for most
+people to figure out and use.</P>
+<P>An example <EM>mig.cf</EM> might look like this:</P>
+<PRE>
+    # Beginning of example mig.cf
+    #
+    &lt;Bulletin&gt;
+    We spent four days in Rome.  Even with four whole days to tour
+    the area, we found we couldn't cover everything.  The Vatican
+    alone took most of the second day, and we only saw half of it.
+    &lt;/Bulletin&gt;</PRE>
+<PRE>
+    &lt;Comment &quot;AUT_2323.JPG&quot;&gt;
+    Massive mosaic found in the Basilica of Saint Peter in the Vatican.
+    &lt;/Comment&gt;</PRE>
+<PRE>
+    &lt;Comment &quot;AUT_2406.JPG&quot;&gt;
+    The Colloseum of Rome.
+    &lt;/Comment&gt;
+    #
+    # End of example mig.cf</PRE>
+<P>An element is opened by a tag (such as &lt;Bulletin&gt;), and closed by
+the associated close-tag (the tag with its name preceded by a slash) such
+as &lt;/Bulletin&gt;.</P>
+<P>An element can have an argument, as in &lt;Comment
+&quot;AUT_2406.JPG&quot;&gt;.</P>
+<P>These tags must be at the beginning of a line.  Case in the tag name is not
+important, so &lt;Comment&gt; is the same as &lt;comment&gt; or
+&lt;CoMMenT&gt;.</P>
+<P>(If you installed the example gallery, look inside for <EM>mig.cf</EM> files for
+some useful examples.)</P>
+<P>
+<H2><A NAME="remarks and blank lines">Remarks and blank lines</A></H2>
+<P>Any line starting with <CODE>#</CODE> is considered a remark and is ignored by Mig.
+Blank lines are also ignored.  Neither are ignored inside an element block
+such as &lt;comment&gt;, so it's best if they don't appear inside blocks.</P>
+<P>
+<H2><A NAME="bulletins">Bulletins</A></H2>
+<PRE>
+    &lt;Bulletin&gt;
+    [some text]
+    &lt;/Bulletin&gt;</PRE>
+<P>A bulletin is just like a comment, only it's attached to the folder rather
+than a single image.   An example is shown near the top of this document.</P>
+<P>
+<H2><A NAME="image comments">Image Comments</A></H2>
+<PRE>
+    &lt;Comment &quot;image_file&quot;&gt;
+    [some text]
+    &lt;/Comment&gt;</PRE>
+<P>A comment is attached to an image.  When viewing that image, the comment
+text associated with it will be displayed in a box below the image. An
+example can be found near the top of this file.</P>
+<P>The argument to <CODE>Comment</CODE> must be enclosed in quotes so Mig can properly
+recognize files with spaces in their names.</P>
+<P>As of 0.90, comments are loaded into the ALT tag of thumbnail images,
+so you can hover over an image and view its description.  (As of 1.3.0
+they're also loaded into the TITLE modifier for better cross-browser
+compatibility).</P>
+<P>Certain HTML elements don't mix well with ALT and TITLE, and should be
+avoided, notably things like &lt;A HREF&gt;.  You can turn ALT/TITLE
+tags off if you wish, by setting <CODE>$suppressAltTags</CODE> to <CODE>TRUE</CODE> in
+<EM>config.php</EM>.</P>
+<P>
+<H2><A NAME="folder icons">Folder Icons</A></H2>
+<PRE>
+    FolderIcon folder_name icon_file.gif</PRE>
+<P>It is sometimes desirable to use a custom icon for a given folder.
+This can be done using the <CODE>FolderIcon</CODE> entity.  Given a folder
+<EM>Trips/Rome</EM>, and an icon <EM>colloseum.gif</EM>, the following can be
+defined in <EM>Trips/mig.cf</EM>:</P>
+<PRE>
+    FolderIcon Rome colloseum.gif</PRE>
+<P>The <EM>colloseum.gif</EM> file should be placed in Mig's <EM>images</EM> folder,
+located in the root directory of your Mig installation.</P>
+<P>If you are using <CODE>$randomFolderThumbs</CODE>, note that <CODE>FolderIcon</CODE> overrides
+that setting.</P>
+<P>
+<H2><A NAME="perfolder template">Per-folder Template</A></H2>
+<PRE>
+    FolderTemplate /path/to/file.tmpl
+    FolderTemplate file.tmpl</PRE>
+<P>It is sometimes desirable to use a custom template for a given folder
+rather than using the site-wide template.  This can be defined with the
+<CODE>FolderTemplate</CODE> entity.</P>
+<P>If the <CODE>FolderTemplate</CODE> entity is followed by a filename, the file is
+assumed to be in the folder in question.</P>
+<P>If the <CODE>FolderTemplate</CODE> entity is followed by a full file path, beginning
+with a <CODE>/</CODE> character, that full path is instead used.</P>
+<P>
+<H2><A NAME="perfolder page title">Per-folder Page Title</A></H2>
+<PRE>
+    PageTitle This is my Page Title for this Folder</PRE>
+<P>A folder-specific page title can be defined with the <CODE>PageTitle</CODE> entity,
+as shown above.  This will override the site-wide page title on a
+folder-by-folder basis.</P>
+<P>
+<H2><A NAME="perfolder maintainer address">Per-folder Maintainer Address</A></H2>
+<PRE>
+    MaintAddr joe@mama.com</PRE>
+<P>A folder-specific maintainer email address can be specified using the
+<CODE>MaintAddr</CODE> entity.  This will override the site-wide value <CODE>$maintAddr</CODE>.</P>
+<P>This is handy in the case where different folders site are really
+owned by different people.</P>
+<P>
+<H2><A NAME="perfolder column settings">Per-folder Column Settings</A></H2>
+<PRE>
+    MaxFolderColumns 2
+    MaxThumbColumns 4</PRE>
+<P><CODE>MaxFolderColumns</CODE> overrides the site-wide value <CODE>$maxFolderColumns</CODE> in a
+given folder.</P>
+<P><CODE>MaxThumbColumns</CODE> overrides the site-wide value <CODE>$maxThumbColumns</CODE> in a
+given folder.</P>
+<P>
+<H2><A NAME="hidden items">Hidden Items</A></H2>
+<PRE>
+    &lt;Hidden&gt;
+    [item]
+    [item]
+    &lt;/Hidden&gt;</PRE>
+<P><CODE>Hidden</CODE> elements are lists of items which are invisible to the browser.
+This is useful for things that should not be publicly viewable, or for
+album directories that exist but are not yet complete.  Each line between
+the start and end tags is either a file or a directory (Mig can sort out
+which is which on its own).</P>
+<PRE>
+    &lt;Hidden&gt;
+    New folder
+    England
+    &lt;/Hidden&gt;</PRE>
+<P><CODE>Hidden</CODE> is not considered a security feature.  It's not difficult for
+someone to get around this if they know the name of the folder or image
+being hidden.  This is security through obscurity (which is only one step
+above no security).</P>
+<P>
+<H2><A NAME="sort order">Sort Order</A></H2>
+<PRE>
+    &lt;Sort&gt;
+    [item]
+    [item]
+    &lt;/Sort&gt;</PRE>
+<P>By default, items are sorted by their ASCII value (for the purpose of this
+discussion, this is close to being alphabetically).  However, it can be
+desirable to control the order in which items (either images or folders)
+appear.</P>
+<P>For example, this is what the contents of a directory might look like:</P>
+<PRE>
+    Ceremony/     Cut the Cake/  Home/         Reception/    Cigars/
+    AUT_3706.JPG  AUT_3712.JPG   AUT_3714.JPG  AUT_3716.JPG
+    AUT_3707.JPG  AUT_3713.JPG   AUT_3715.JPG  AUT_3717.JPG</PRE>
+<P>Note that the first five are directories, and the other eight are files.
+This will display by default as a list of folders, then a list of images,
+each list in alphabetical (ASCII) order.</P>
+<P>Let's say that <EM>Home</EM> should move to the top of the list and <EM>Cigars</EM> to
+just above <EM>Reception</EM>.</P>
+<PRE>
+    &lt;Sort&gt;
+    Home
+    Ceremony
+    Cutting the Cake
+    Cigars
+    Reception
+    &lt;/Sort&gt;</PRE>
+<P>Now let's move images 3716 and 3717 to the third and fourth position in the
+list of images.</P>
+<PRE>
+    &lt;Sort&gt;
+    AUT_3706.JPG
+    AUT_3707.JPG
+    AUT_3716.JPG
+    AUT_3717.JPG
+    &lt;/Sort&gt;</PRE>
+<P>Attentive readers will have noticed that there are four images that aren't
+even mentioned here.  What happens to them?  They're sorted alphabetically
+independently of the pre-sorted list, and tacked on afterward.  The final
+list would be:</P>
+<PRE>
+    AUT_3706.JPG
+    AUT_3707.JPG
+    AUT_3716.JPG
+    AUT_3717.JPG
+    AUT_3712.JPG
+    AUT_3713.JPG
+    AUT_3714.JPG
+    AUT_3715.JPG</PRE>
+<P>If everything goes into one &lt;sort&gt; block, Mig can figure it out
+(which are files, which are directories).  This is arguably sloppy from the
+point of view of a human though.  It's easier to define multiple sort
+blocks in those situations; one for files, one for directories.  Mig can
+detect and use multiple sort blocks.</P>
+<P>
+<H2><A NAME="security">Security</A></H2>
+<P>See the <EM>apache</EM> document if you are running Apache and would like to
+prevent people from browsing your <EM>mig.cf</EM> and/or <EM>exif.inf</EM> files.</P>
+
+</BODY>
+
+</HTML>

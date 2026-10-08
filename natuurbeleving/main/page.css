@@ -1,0 +1,67 @@
+body 		{
+		background-color: #FFFFFF;
+		scrollbar-face-color: #333366; 
+		scrollbar-shadow-color: #333366; 
+		scrollbar-highlight-color: #333366; 
+		scrollbar-3dlight-color: #333366; 
+		scrollbar-darkshadow-color: #333366; 
+		scrollbar-track-color: #9999cc; 
+		scrollbar-arrow-color: #FFFFFF;}
+
+p, td 		{
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+		font-size: 13px; 
+		line-height: 18px;
+		font-style: normal; 
+		color: #333366;}
+
+.bijschrift 	{font-size: 9px}
+
+.imgb   	{border: solid #333333 1px;}
+
+
+input		{
+		height: 22px;		
+		border-right: #333366 1px solid; 
+		border-top: #333366 1px solid; 
+		border-bottom: #333366 1px solid;
+		border-left: #333366 1px solid;  
+		vertical-align: middle; 		
+		color: #333366; 
+		font-family: Verdana, Arial, Helvetica, sans-serif; 
+		font-size: 12px; 
+		line-height: 16px;}
+
+textarea	{
+		border-right: #333366 1px solid; 
+		border-top: #333366 1px solid; 
+		border-bottom: #333366 1px solid;
+		border-left: #333366 1px solid;  
+		vertical-align: middle; 		
+		color: #333366; 
+		font-family: Verdana, Arial, Helvetica, sans-serif; 
+		font-size: 12px; 
+		line-height: 16px;}
+
+
+.zend 		{
+		background: #333366; 
+		color: #FFFFFF; 
+		text-align: center;
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 10px;}
+
+hr		{
+		line-height: 1px; 
+		color: #9999cc;}
+
+a 		{
+		color: #333366;
+		text-decoration: none; 
+		font-weight: bold;}
+
+.nonbold 	{font-weight: normal;}
+
+a:hover 	{color: #9999cc;}
+
+a:active 	{color: #9999CC;}

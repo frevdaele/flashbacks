@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<TITLE>Mig Documentation - jump.html</TITLE>
+<LINK REV="made" HREF="mailto:root@law.uucp">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+<!--
+
+<UL>
+
+	<UL>
+
+		<LI><A HREF="#what are jump tags and how do they work">What Are Jump Tags and How Do They Work?</A></LI>
+		<LI><A HREF="#tips for apache users">Tips for Apache Users</A></LI>
+	</UL>
+
+</UL>
+-->
+<!-- INDEX END -->
+
+<P>$Id: jump.pod,v 1.3 2002/05/13 07:58:03 tangledhelix Exp $</P>
+<P>
+<H2><A NAME="what are jump tags and how do they work">What Are Jump Tags and How Do They Work?</A></H2>
+<P>What is a jump tag?  Well, many people (including the author) didn't like
+the really long URLs that Mig uses because it made it clumsy to paste them
+into an email or a chat window.  However, changing them now would be
+difficult to do and certainly not backward-compatible.</P>
+<P>Jump tags were invented to address this problem.  Take this URL for
+example:</P>
+<P><A HREF="https://web.archive.org/web/2002/http://tangledhelix.com/gallery/index.php?pageType=folder&currDir=./Our%20House/Before%20We%20Redecorated">http://tangledhelix.com/gallery/index.php?pageType=folder&currDir=./Our%20House/Before%20We%20Redecorated</A></P>
+<P>At 105 characters long, and having tons of URL-encoded <CODE>%xx</CODE> entities
+in it, it's an ugly URL to send someone.  But the pain can be alleviated.
+The jump map defines shortcuts for long URLs.</P>
+<P>Add a line to <EM>config.php</EM> that adds to the jump map.</P>
+<PRE>
+    $jumpMap['me'] = 'currdir=./Pictures_of_me';</PRE>
+<P>Now &quot;me&quot; is defined as a shortcut for a folder at the root of
+the album called &quot;Pictures of me&quot;.  The long URL above
+would look like this:</P>
+<PRE>
+    $jumpMap['house'] = 'currDir=./Our%20House/Before%20We%20Redecorated';</PRE>
+<P>All that is needed is the value of <CODE>currDir</CODE> (which can be copied from the
+address bar in most web browsers).  Now this URL will go to the same place:</P>
+<PRE>
+    <A HREF="https://web.archive.org/web/2002/http://tangledhelix.com/gallery/?jump=house">http://tangledhelix.com/gallery/?jump=house</A></PRE>
+<P>Much shorter and nicer.  If an album has four or five levels deep (such as
+some of the albums I maintain), the URLs can be very long.</P>
+<P>There are two ways to do this, too.  The first is shown above.  Another way
+is a URL like this:</P>
+<PRE>
+    <A HREF="https://web.archive.org/web/2002/http://tangledhelix.com/gallery/index.php/house">http://tangledhelix.com/gallery/index.php/house</A></PRE>
+<P>Which avoids clumsy stuff like the ? in the URL.  It's a matter of
+preference which one to use.  Note that with the second method it can't
+be shortened like this:</P>
+<PRE>
+    <A HREF="https://web.archive.org/web/2002/http://tangledhelix.com/gallery/house">http://tangledhelix.com/gallery/house</A></PRE>
+<P>Because the web server will look for that directory, not find it, and
+return an error.  So that <EM>index.php</EM> or <EM>index.php3</EM> has to be in
+there.</P>
+<P>This works with Apache web servers.  I don't know if it works with
+anything else.  If you're running something other than Apache, let me
+know how you fare with this feature.</P>
+<P>
+<H2><A NAME="tips for apache users">Tips for Apache Users</A></H2>
+<P>Also see the <EM>apache</EM> document which has some nifty
+<CODE>mod_rewrite</CODE> ideas to utilize shorter, simpler URLs.</P>
+
+</BODY>
+
+</HTML>

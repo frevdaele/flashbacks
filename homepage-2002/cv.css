@@ -1,0 +1,32 @@
+body 		{
+		background-color: #336699;
+		scrollbar-face-color: #333366; 
+		scrollbar-shadow-color: #333366; 
+		scrollbar-highlight-color: #333366; 
+		scrollbar-3dlight-color: #333366; 
+		scrollbar-darkshadow-color: #333366; 
+		scrollbar-track-color: #6699CC; 
+		scrollbar-arrow-color: #FFFFFF;}
+
+table, td {
+		font-family: Verdana, Arial, Helvetica, sans-serif; 
+		font-size: 10px; 
+		color: #333366;}
+    
+td.left {
+	background-color: #6699CC;
+	border: 2px dotted #333366;
+	padding: 15px;
+	color: #333366;
+}
+
+.subtitel {	color: #FFFFFF;}
+
+
+div.spatie{margin-left: 10px;}
+
+hr{color: #336699;}
+
+a {text-decoration: none; color: #333366;}
+
+a:hover {text-decoration: underline;}

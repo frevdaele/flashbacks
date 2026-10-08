@@ -1,0 +1,335 @@
+    $Id: install.pod,v 1.13 2002/06/07 21:40:51 tangledhelix Exp $
+
+  Mig - A general purpose photo gallery
+
+    Copyright © 2000-2002 Daniel M. Lowe
+
+  License Information
+
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation; either version 2 of the License, or (at your
+    option) any later version.
+
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+    Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+    A copy of the GPL can be found at http://www.gnu.org/copyleft/gpl.html
+
+  Requirements
+
+    Mig requires a web server which supports PHP [ http://www.php.net/ ]. At
+    least PHP 3.0.6 is required, or any version of PHP4. The development
+    platform is Apple OSX, so the code tends to assume a unix-like
+    environment. As such it may or may not work (and has not been tested by
+    the author) on non-unix-like platforms. Mig has been tested with Apache
+    (and reportedly it works with Microsoft's IIS server).
+
+    Windows users, please see the section labeled "Running Mig Under
+    Windows" below.
+
+    The mkGallery.pl utility requires Perl [ http://www.perl.com ]. To
+    generate thumbnail images, it also requires ImageMagick [
+    http://www.imagemagick.org/ ]. Neither are required to use Mig itself.
+
+    The jhead utility which is called by mkGallery.pl for EXIF header
+    parsing is a C source code file - it must be compiled before use. On
+    most unix-like systems this is as easy as going into the jhead directory
+    and typing "make".
+
+    Windows users can download the pre-built jhead program from Mathias
+    Wandel's site at http://www.sentex.net/~mwandel/jhead/
+
+    See the "utilities" document for more information about mkGallery.pl and
+    jhead.
+
+    PHP-Nuke, PostNuke, PHPWebSite and PHPWebThings users: see the phpnuke
+    document.
+
+  New Installation
+
+    Read this section if you are installing Mig for the first time. If you
+    are upgrading, skip to the next section which deals with upgrading.
+
+    1.  Create a directory for Mig to live in, somewhere the web server can
+        read the files and serve them as web pages.
+
+    2.  Copy the file index.php to the new Mig directory.
+
+    3.  Copy the file config.php.default to the new Mig directory and call
+        it config.php. Any customization of Mig (except layout and colors)
+        can be done by editing config.php.
+
+    4.  Create three subdirectories called images, templates and albums
+        under the new Mig directory.
+
+    5.  Copy the files image.gif and no_thumb.gif from the images
+        subdirectory to the new images subdirectory.
+
+    6.  Copy the files image.html, folder.html and style.css from the
+        templates subdirectory to the new templates subdirectory.
+
+    7.  Put image files (photos, etc) into the albums subdirectory. You can
+        make subdirectories to contain different categories of images, and
+        those subdirectories can contain subdirectories, and so on. Mig
+        doesn't place any restriction on how many levels deep subdirectories
+        go. Arrange the album any way you wish. The name of each album is
+        the name of the directory, so keep that in mind. For example:
+
+            People
+                Family
+                Friends
+            The_Zoo
+                Dolphins
+                Bears
+                Lions
+            Cars
+
+        Notice that I used an underline character in The_Zoo. Mig will
+        display that as a space, so the album will be called The Zoo as far
+        as visitors will know. This makes things simpler since some systems
+        make using underlines in directory names unfriendly.
+
+        The above example ends up being these eight gallery folders:
+
+            People
+            People : Family
+            People : Friends
+            The Zoo
+            The Zoo : Dolphins
+            The Zoo : Bears
+            The Zoo : Lions
+            Cars
+
+        Mig supports JPEG, GIF and PNG files. So files with any of these
+        extensions will be recognized:
+
+            .gif .png .jpg .jpe .jpeg
+
+    8.  Point your web browser to the newly-installed Mig and browse away!
+
+    9.  If you can run Perl scripts on the commandline on your server, and
+        you have Perl and ImageMagick available, use mkGallery.pl to create
+        thumbnail images. See the utilities document for more information on
+        how.
+
+        You should create a utilities subdirectory in your Mig installation
+        and copy mkGallery.pl there, as well as jhead if you plan to use
+        jhead. If Perl is somewhere other than /usr/bin/perl on your system
+        you may need to modify the first line of mkGallery.pl to reflect the
+        proper location of Perl.
+
+        If you can't run Perl scripts, you can make your own thumbnail
+        images in whatever way is handy for you (an image editing program,
+        for example). In each album folder, create a subdirectory called
+        thumbs, and put thumbnail images inside. A thumbnail should have the
+        same filename as the full-size image it represents.
+
+        The thumbnail subdirectory is thumbs by default, but this can be
+        customized (see the `$thumbSubdir' option in config.php).
+
+  Upgrading
+
+    If you are upgrading from a previous version of Mig, follow these steps:
+
+    1.  Copy the index.php file to the Mig directory. This should replace
+        the index.php which was already there. If the existing file was
+        called index.php3, then the new file should also be called
+        index.php3.
+
+    2.  Starting with version 1.3.1, mig.cfg is now called config.php. If
+        mig.cfg is present, rename it to config.php. The distribution comes
+        with config.php.default, which is the new default config file.
+        config.php.default is just an example. There is no need to copy it
+        over to the Mig directory.
+
+    3.  Starting with version 1.3.2, the funcs.php and lang.php files are no
+        longer used. If they are prsent, delete them. All code is now
+        contained in index.php. Mig will not fail if funcs.php or lang.php
+        are present, but it's sloppy to leave them laying around.
+
+    4.  If you wish to use mkGallery.pl, copy mkGallery.pl from the
+        utilities directory to the utilities subdirectory of your Mig
+        installation. You may need to modify the first line if Perl is
+        somewhere other than /usr/bin/perl on your system.
+
+    5.  If you wish to use jhead (note that using the EXIF functions of
+        mkGallery.pl implies using jhead), you may wish to compile a new
+        copy of jhead if it's a newer version than you're using now (to find
+        out when jhead was last updated, check the "changelog" document).
+
+        If you want mkGallery.pl to be able to use jhead, put jhead in the
+        utilities subdirectory of your Mig installation with mkGallery.pl.
+
+  Running Mig Under Windows
+
+    Mig can run under Windows (so I'm told) as long as the web server
+    supports PHP. The Windows version of PHP is available from
+    http://www.php.net/
+
+    Mig is reported to work with IIS, Personal Web Server, and the Windows
+    port of Apache. One user noted that a fairly recent version of PHP is
+    needed for it to work, so if you're having trouble, make sure you're
+    using the most recent release of PHP.
+
+    Another user reported that having a comma (,) in the directory name of
+    any album would cause problems, so avoid using commas.
+
+  The Example Gallery
+
+    If you want to see an example gallery (that is, install one on your
+    system and examine the files that it contains), you can download one
+    from the Mig project page at http://sf.net/projects/mig/ (look in the
+    "mig-extras" section in the project files listing). After downloading
+    the file, unpack it in the albums sub directory and it should appear as
+    "Mig Example Gallery".
+
+  Optional Customization
+
+    1. HTML templates (and colors)
+        Mig is template-based. Any change to layout or colors can be
+        achieved by modifying the template files in the templates
+        subdirectory. See the templates document for more information.
+
+        A per-folder custom template can be used in any given folder. See
+        the `FolderTemplate' section of the mig_cf document for more
+        information.
+
+    2. Comments
+        A comment can be attached to any image. Comments are stored in a
+        file called mig.cf in the same directory as the image. See the
+        mig_cf document for information about the format of mig.cf files.
+
+        Comments are shown in a box below the image in image views. In
+        thumbnail views, they are shown as the ALT tag text. (That behavior
+        can be suppressed by setting `$suppressAltTags' to `TRUE' in
+        config.php).
+
+        As an example, let's say you have files house.jpg, car.gif and
+        dog.jpg. Let's say you wanted a comment on the house and the dog,
+        but nothing in particular to say about the car. Add this to mig.cf:
+
+            <Comment "house.jpg">
+            This is my house, which I bought in the fall of 1998.
+            </Comment>
+
+            <Comment "dog.jpg">
+            This is the dog we had when I was growing up.  She was a lot of
+            fun!  Sadly, she died when I was 12 years old (she had cancer).
+            We had other dogs afterward, but none of them were as much fun.
+            </Comment>
+
+        (mkGallery.pl users, see the `-c' option which handles comments.)
+
+        The description can be multiple lines, as long as it's enclosed
+        inside the <comment>...</comment> structure. Tags such as <comment>
+        must be at the start of a new line.
+
+    3. EXIF data
+        Many images contain EXIF header data. mkGallery.pl can extract this
+        data using jhead. See the utilities document for details.
+
+        EXIF data generally contains information such as shutter speed,
+        aperture, ISO rating, the original shooting date and time, and
+        sometimes comments. Mig can read some, but not all, of this data.
+        Future versions of Mig may understand more of the data than it
+        currently does.
+
+        By default Mig only shows embedded comments. To show more, adjust
+        the format string `$exifFormatString' found in config.php. There are
+        examples in that file that explain how the formatting works.
+
+        Note that most graphic editors destroy EXIF blocks! They don't know
+        how to write them so when they save images, they are simply not
+        written back into the file.
+
+    4. Item sorting
+        Items can be sorted in a custom order if desired (rather than
+        relying on the default alphabetical order). To do this define a
+        <sort> block in mig.cf. See the mig_cf document for details.
+
+    5. Languages other than English
+        Mig has support for other languages - however, it only supports
+        those languages someone has supplied translations for. If you want
+        to translate it to another language, please get in touch with me and
+        I'll be glad to add your translations to the available list of
+        languages.
+
+        See config.php.default for more information - Mig now supports
+        English, French, German, Norwegian, Portugese, Finnish, Romanian,
+        Russian (Windows-1251 and KOI8-R), Turkish, Swedish, Danish,
+        Italian, Spanish, Slovak, Dutch, Polish, Estonian and Japanese
+        (ISO-2022-JP).
+
+    6. Pop-up windows
+        Pop-up windows can be used (see the `$imagePopup' option in
+        config.php).
+
+    7. Pagination of large galleries
+        Sometimes a gallery gets so large, fitting all the thumbnails on one
+        page becomes a problem (think of a gallery with 500 images). To
+        resolve this, Mig paginates large galleries. By default, any gallery
+        with more than 20 images will go into a paged mode (4 images across,
+        in 5 rows).
+
+        This can be controlled using two options in config.php:
+        `$maxThumbColumns' and `$maxThumbRows'. Their names are
+        self-explanatory. Set `$maxThumbColumns' to the maximum number of
+        columns desired (how many thumbnails across from left to right in
+        one row). Set `$maxThumbRows' to the maximum number of rows per
+        page/screen. The defaults are 4 columns and 5 rows (for 20 images
+        per page).
+
+    8. Using random thumbnails instead of folder icons
+        Instead of using the generic folder icon for folder views, Mig can
+        use a randomly selected thumbnail from the folder as the icon. To
+        turn this behavior on, set `$randomFolderThumbs' to `TRUE' in
+        config.php. (See also `$folderNameLength'.)
+
+        If the folder itself contains only other folders, and no images, Mig
+        will traverse subdirectories until it finds a usable thumbnail to
+        use as an icon. So the only time the generic icon will be used is in
+        a situation where there is a folder that contains no thumbnails,
+        whose subfolders and their subfolders, etc, contain no thumbnails.
+        In other words, only a useless folder branch would result in the
+        generic folder icon being shown.
+
+  Bug Reporting
+
+    To report a bug, or view existing bug reports, go to:
+
+        http://sourceforge.net/tracker/?group_id=24365
+
+  Feature Requests
+
+    To request a feature, or view existing feature requests, go to:
+
+        http://sourceforge.net/tracker/?group_id=24365
+
+  Email Lists
+
+    1. mig-announce
+        mig-announce is an announcements-only list. Generally speaking that
+        means the only traffic it gets are announcements of new versions
+        posted by the author.
+
+            http://lists.sourceforge.net/lists/listinfo/mig-announce
+
+    2. mig-users
+        mig-users is a general discussion list. Any Mig-related topic can be
+        discussed on this list.
+
+            http://lists.sourceforge.net/lists/listinfo/mig-users
+
+    3. mig-devel
+        mig-devel is for people interested in development work related to
+        Mig.
+
+            http://lists.sourceforge.net/lists/listinfo/mig-devel
+

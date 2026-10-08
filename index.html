@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#13171f" />
+  <title>Flashbacks</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="description" content="Oude websites, 1997–2011." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    :root {
+      /* Zelfde palet als vdaele.be-sites */
+      --bg: #13171f;
+      --card: #1b202b;
+      --card-hover: #262c38;
+      --text: #edede9;
+      --muted: #96969c;
+      --line: rgba(237, 237, 233, 0.08);
+      --accent: #e48500;
+      --accent-hover: #ffa23a;
+      --accent-soft: rgba(228, 133, 0, 0.16);
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 56px 16px 64px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .intro {
+      max-width: 720px;
+      margin: 0 0 36px;
+      color: var(--muted);
+    }
+
+    .intro:has(+ .note) { margin-bottom: 6px; }
+
+    .intro.note {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    .intro a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+    .intro a:hover { color: var(--accent-hover); }
+
+    ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    ol.small {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    h2 {
+      margin: 48px 0 16px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    a.site {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    a.site:hover,
+    a.site:focus-visible {
+      background: var(--card-hover);
+      border-color: var(--accent-soft);
+      outline: none;
+    }
+
+    a.site img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: top;
+      background: #000;
+      border-bottom: 1px solid var(--line);
+      filter: saturate(0.85);
+      transition: filter 0.2s;
+    }
+
+    a.site:hover img,
+    a.site:focus-visible img { filter: none; }
+
+    .body {
+      display: grid;
+      gap: 4px;
+      padding: 14px 16px 16px;
+    }
+
+    .year {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .name {
+      font-weight: 600;
+      font-size: 17px;
+    }
+
+    a.site:hover .name { color: var(--accent-hover); }
+
+    .tag {
+      margin-left: 8px;
+      padding: 1px 7px;
+      border-radius: 99px;
+      background: var(--accent-soft);
+      color: var(--accent-hover);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      vertical-align: 2px;
+    }
+
+    .desc { color: var(--muted); }
+
+    .small .body { padding: 10px 12px 12px; gap: 2px; }
+    .small .name { font-size: 14px; }
+    .small .desc { font-size: 13px; }
+    .small .tag { margin-left: 6px; font-size: 10px; }
+
+    .desc code {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent-hover);
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer p { margin: 0 0 8px; }
+
+
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--accent-hover); }
+
+    @media (max-width: 520px) {
+      main { padding-top: 36px; }
+      h1 { font-size: 28px; }
+      ol { grid-template-columns: 1fr; }
+      ol.small { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Flash<span>backs</span></h1>
+    <p class="intro">Oude websites van 1997 tot 2011, zo goed mogelijk bewaard zoals ze toen waren.</p>
+    <p class="intro note">Links naar andere websites gaan waar mogelijk naar het <a href="https://web.archive.org/">Internet Archive</a>, naar een versie van rond dezelfde tijd. Niet alles werd daar bewaard, dus sommige links of afbeeldingen werken niet meer.</p>
+
+    <ol class="featured">
+      <li>
+        <a class="site" href="scene24.net/">
+          <img src="screenshots/scene24.net.jpg" alt="" width="640" height="480" loading="lazy">
+          <span class="body">
+            <span class="year">2002–2011</span>
+            <span class="name">scene24.net</span>
+            <span class="desc">Weblog over wandelen in de bergen, muziek, vogels, Apple, fotografie en de tuin. 369 artikels en 112 filmbesprekingen.</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="site" href="natuurbeleving/">
+          <img src="screenshots/natuurbeleving.jpg" alt="" width="640" height="480" loading="lazy">
+          <span class="body">
+            <span class="year">1999–2008</span>
+            <span class="name">Natuurbeleving</span>
+            <span class="desc">367 vogels en 108 zoogdieren van West-Europa, met foto, beschrijving en aantallen. Heruitgave met de layout van 2008.</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="site" href="vleermuis/">
+          <img src="screenshots/vleermuis.jpg" alt="" width="640" height="480" loading="lazy">
+          <span class="body">
+            <span class="year">2002–2004</span>
+            <span class="name">200e FOS De Vleermuis</span>
+            <span class="desc">Site van de scoutsgroep uit Dikkelvenne, met infovleraties, knopen en sjorringen, wie-is-wie en downloads.</span>
+          </span>
+        </a>
+      </li>
+    </ol>
+
+    <h2>Homepages en experimenten</h2>
+    <ol class="small">
+      <li>
+        <a class="site" href="homepage-1997/">
+          <img src="screenshots/homepage-1997.jpg" alt="" width="640" height="480" loading="lazy">
+          <span class="body">
+            <span class="year">1997</span>
+            <span class="name">Homepage 1997</span>
+            <span class="desc">De allereerste homepage, gemaakt met Netscape Composer.</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="site" href="homepage-flash/index.htm">
+          <img src="screenshots/homepage-flash.jpg" alt="" width="640" height="480" loading="lazy">
+          <span class="body">
+            <span class="year">1999–2000</span>
+            <span class="name">Nietzsche aka Artifex <span class="tag">Flash</span></span>
+            <span class="desc">Persoonlijke Flash-homepage met intro.</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="site" href="flash-experiment/">
+          <img src="screenshots/flash-experiment.jpg" alt="" width="640" height="480" loading="lazy">
+          <span class="body">
+            <span class="year">ca. 2001</span>
+            <span class="name">3dexperiment <span class="tag">Flash</span></span>
+            <span class="desc">3D-experiment met een muzieklus.</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="site" href="joeweb/">
+          <img src="screenshots/joeweb.jpg" alt="" width="640" height="480" loading="lazy">
+          <span class="body">
+            <span class="year">2001</span>
+            <span class="name">JOE – lights your fire! <span class="tag">Flash</span></span>
+            <span class="desc">Site voor een groothandel in aanstekers en gadgets.</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="site" href="homepage-2002/">
+          <img src="screenshots/homepage-2002.jpg" alt="" width="640" height="480" loading="lazy">
+          <span class="body">
+            <span class="year">2002</span>
+            <span class="name">Homepage 2002</span>
+            <span class="desc">Portfolio, experimenten, foto's en cv.</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="site" href="edmonds-sake/">
+          <img src="screenshots/edmonds-sake.jpg" alt="" width="640" height="480" loading="lazy">
+          <span class="body">
+            <span class="year">2002</span>
+            <span class="name">For Edmond's Sake <span class="tag">Flash</span></span>
+            <span class="desc">Uitnodiging voor een fifties-feest. Paswoord: <code>1977</code>.</span>
+          </span>
+        </a>
+      </li>
+    </ol>
+
+    <footer>
+      <p>Terug naar <a href="https://vdaele.be">vdaele.be</a></p>
+    </footer>
+  </main>
+  <script src="sky.js" defer></script>
+</body>
+</html>

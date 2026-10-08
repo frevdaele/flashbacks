@@ -1,0 +1,29 @@
+/* Opmaak van de maiden homepage (1997), zonder frames */
+:root { color-scheme: dark; }
+html, body { margin: 0; background: #000; color: #fff; }
+body { font-family: "Times New Roman", Times, serif; }
+a:link, a:visited, a:active { color: #0ff; }
+.kader { display: flex; align-items: flex-start; }
+.menu { flex: 0 0 138px; position: sticky; top: 0; padding: 8px 0 0 8px; box-sizing: border-box; }
+.menu img { display: block; border: 0; }
+.rechts { flex: 1; min-width: 0; }
+.kop { text-align: center; height: 120px; padding-top: 8px; box-sizing: border-box; overflow: hidden; }
+.kop img { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+/* Golflijn als achtergrond: pur.gif (1000px) eindigt op een wit stuk vanaf 956px, dat valt zo buiten beeld */
+.kop .lijn { display: none; }
+.kop::after { content: ""; display: block; height: 16px; margin-top: 12px;
+              background: url(pur.gif) no-repeat left top / max(1000px, calc(100% * 1000 / 956)) 16px; }
+.fader { height: 20px; line-height: 20px; font: bold 14px Arial, Helvetica, sans-serif; color: #fff;
+         transition: opacity 1s; }
+.fader.weg { opacity: 0; transition-duration: .4s; }
+main { padding: 0 8px 16px; overflow-x: auto; }
+main img { max-width: 100%; height: auto; }
+table[width="500"] { max-width: 100%; }
+.blink { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .blink { animation: none; } }
+@media (max-width: 600px) {
+  .kader { display: block; }
+  .menu { position: static; padding: 8px; text-align: center; }
+  .menu img { margin: 0 auto; }
+}

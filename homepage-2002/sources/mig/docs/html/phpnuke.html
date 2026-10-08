@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<TITLE>Mig Documentation - phpnuke.html</TITLE>
+<LINK REV="made" HREF="mailto:root@law.uucp">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+<!--
+
+<UL>
+
+	<UL>
+
+		<LI><A HREF="#phpnuke, postnuke, phpwebsite and phpwebthings compatibility">PHP-Nuke, PostNuke, PHPWebSite and PHPWebThings compatibility</A></LI>
+	</UL>
+
+</UL>
+-->
+<!-- INDEX END -->
+
+<P>$Id: phpnuke.pod,v 1.7 2002/05/23 08:02:38 tangledhelix Exp $</P>
+<P>
+<H2><A NAME="phpnuke, postnuke, phpwebsite and phpwebthings compatibility">PHP-Nuke, PostNuke, PHPWebSite and PHPWebThings compatibility</A></H2>
+<P>Mig can be configured to try to fit into PHP-Nuke, PostNuke, PHPWebSite
+and PHPWebThings sites.  (For simplicity I refer to these collectively as
+&quot;Nuke&quot; sites in this document.)</P>
+<P>Where to find information about these packages:</P>
+<DL>
+<DT><STRONG><A NAME="item_PHP%2DNuke">PHP-Nuke</A></STRONG><BR>
+<DD>
+<A HREF="https://web.archive.org/web/2002/http://www.phpnuke.org/">http://www.phpnuke.org/</A> (tested with 5.5)
+<P></P>
+<DT><STRONG><A NAME="item_PostNuke">PostNuke</A></STRONG><BR>
+<DD>
+<A HREF="https://web.archive.org/web/2002/http://www.postnuke.com/">http://www.postnuke.com/</A> (tested with 0.714)
+<P></P>
+<DT><STRONG><A NAME="item_PHPWebSite">PHPWebSite</A></STRONG><BR>
+<DD>
+<A HREF="https://web.archive.org/web/2002/http://phpwebsite.appstate.edu/">http://phpwebsite.appstate.edu/</A> (tested with 0.8.2)
+<P></P>
+<DT><STRONG><A NAME="item_PHPWebThings">PHPWebThings</A></STRONG><BR>
+<DD>
+<A HREF="https://web.archive.org/web/2002/http://www.phpdbform.com/">http://www.phpdbform.com/</A> (tested with 0.41)
+<P></P></DL>
+<P>Find your Nuke directory.  For example we'll say this is
+<EM>/www/mysite.com/nuke</EM></P>
+<P>Create a subdirectory called <EM>mig</EM> (i.e. <EM>/www/mysite.com/nuke/mig</EM>).
+Put all the files into that folder as described in the <EM>install</EM> document,
+except for the following changes.</P>
+<OL>
+<LI>
+Instead of the templates that the <EM>install</EM> document mentions, copy over
+the two files in <EM>templates/phpnuke</EM>.  The HTML and CSS files Mig normally
+uses are not used in Nuke mode.
+<P></P>
+<LI>
+Copy <EM>index.php</EM> to your Nuke directory, not to the mig subdirectory.
+And call it <EM>mig.php</EM>, not <EM>index.php</EM>.  Make sure you rename it before
+you move it, so you do not over-write your Nuke site's <EM>index.php</EM> file.
+<P></P>
+<LI>
+Copy <EM>config.php.default</EM> to <EM>config.php</EM> in your Mig subdirectory,
+if you don't already have one there.  Make sure you do not copy
+<EM>config.php</EM> into your Nuke directory, since Nuke has its own file called
+<EM>config.php</EM> and you must be careful not to destroy it.
+<P></P>
+<LI>
+Edit Mig's <EM>config.php</EM> and set <CODE>$phpNukeCompatible</CODE> to TRUE.
+Change <CODE>$phpNukeRoot</CODE> to your Nuke directory (i.e.
+<EM>/www/mysite.com/nuke</EM>) - not the Mig directory, but your Nuke directory.
+<P>(If you're using phpWebThings, you want instead to use the options
+<CODE>$phpWebThingsCompatible</CODE> and <CODE>$phpWebThingsRoot</CODE>).</P>
+<P></P></OL>
+<P>That should be it - <A HREF="https://web.archive.org/web/2002/http://yournukesite.com/mig.php">http://yournukesite.com/mig.php</A> should work.</P>
+<P>PostNuke, PHPWebSite and PHPWebThings users can add Mig to their menus like
+anything else, just giving <EM>mig.php</EM> as the target to load.</P>
+<P>PHP-Nuke users need a little more work to get their module in place due to
+PHP-Nuke's module system.  In your modules directory, create a new module,
+such as <EM>Photo_Gallery</EM> and put this in a file called <EM>index.php</EM> inside
+the module directory:</P>
+<PRE>
+    &lt;?php
+        $baseHref = ereg_replace('/modules.*$', '', $PHP_SELF);
+        header(&quot;Location: <A HREF="http://">http://</A>$SERVER_NAME$baseHref/mig.php&quot;);
+    ?&gt;</PRE>
+<P>Making sure there are no blank lines before the first line or after the
+last line!  If you don't want to cut and paste or type that in, you can
+find this code in the <EM>phpnuke_module.php</EM> file in the <EM>mig-contrib</EM>
+package also (available in the <CODE>Extras</CODE> section on the web site).</P>
+
+</BODY>
+
+</HTML>

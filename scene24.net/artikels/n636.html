@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OS X display issue | scene24.net</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="../assets/favicon.ico">
+</head>
+<body>
+<div id="content">
+<header class="kop">
+<a class="logo" href="../index.html" title="scene24.net"><img src="../assets/logo.gif" alt="scene24.net" width="200" height="70"></a>
+<nav class="menu"><a href="../artikels.html" aria-current="page">Artikels</a> <a href="../films.html">Films</a></nav>
+</header>
+<article class="item" id="post-n636">
+<h1 class="title">OS X display issue</h1>
+<p class="subtitle">vrijdag 5 maart 2004 | Apple</p>
+<p>I am experiencing heavy color distortions on my brand new Powermac  dual 1.8 G5. Pictures look oversaturated in Preview and Photoshop and certain OS X interface elements, such as the dock icon and the trashcan, are almost fluorescent (purple, hue, blueish). I have the ATI 9600 videocard and a 19'' <a href="https://web.archive.org/web/2004/http://www.iiyama.com/pages/startseite.asp?0|1|0|0|0|0|0|1|4|472">IIyama Vision Master Pro 454</a> CRT monitor.</p>
+
+<p>The problem occurred from day one on my new system. I tried reinstalling Panther, both from the standard 10.3 disks and from the DVD that came with my G5. I always performed a clean install to make sure nothing kept lingering around from any previous installation.</p>
+
+<p>Changing the color profile in the Monitor settings (System Preferences) from the monitor-related profile to &#8220;Adobe RGB (1998)&#8221; did help a lot (you must reboot before you see the changes). Pictures and video look OK again, but some icons (Finder, Trash) and some programs (Entourage, Earthdesk, ...) still have distorted colors.</p>
+
+<p>The problem is almost certainly caused by a bad setting in the user folder. When I create a new user, everything looks OK in that account. I tried deleting every file in my user folder that could have something to do with colors and displays. I also cleared out my caches folder with <a href="https://web.archive.org/web/2004/http://www.versiontracker.com/dyn/moreinfo/macosx/16494">Panther Cache Cleaner</a>, as suggested in one of the Macfixit reports below. Nothing helped.</p>
+
+<p>I seem to be stuck. Help!</p>
+
+<h3>Update (March, 9): The solution (sort of...)</h3>
+<p>I tried the solutions posted on Macfixit. They all failed. Then I tried yet another reinstall of the system. This is how I did it... I unplugged my screen while Panther booted after the first part of the installation. When I heard the welcome-music playing, I plugged it back in. The result was that I had to complete the installation and registration in a 640*480 resolution. When Panther installation had completely finished, I switched to a higher resolution, put the Color profile to sRGB and... everything looked normal! Eureka!</p>
+<p>Seems like Panther loads a corrupt driver for the screen (19inch IIyama Vision Master Pro 454 CRT) during install which you cannot unload afterwards. </p>
+<p>Strange thing is: on a 'corrupted' OS X, in a new user account, everything looks normal too! The bad driver/setting must therefor be somewhere in the user-folder, but <em>where</em>?! This mystery remains yet unsolved.</p>
+
+<h3>Update II (April, 3)</h3>
+<p>I noticed that my previously posted solution is not complete. Before reinstalling, one should reset the PRAM of the Mac in order to clear all information left behind on the Mac about your display hardware (not on the harddrive!). You can rest the PRAM by pressing CMD, Option, P and R during the boot process. Follow these steps:
+
+<ol>
+<li>Backup your data</li>
+<li>Reboot using your Panther installation disk</li>
+<li>Erase your disk</li>
+<li>Reboot by quitting the installer and press CMD, Option, P, R. Keep these keys pressed down until you've heard the startup chime three times. During this process you won't see anything appear on your screen.</li>
+<li>Reboot again, using the installation disk. If your PRAM is reset correctly, the installation software will display in a low resolution like 640x480.</li>
+<li>Follow on-screen instructions, but unplug your screen from your graphic card when you have to reboot. Wait untill you hear the welcome music of the installation. It is now save to plug your screen back in.</li>
+<li>After the installation, go the the Pref pane and change your display color profile to sRGB.</li>
+<li>That's it!</li>
+</ol>
+
+
+<h3>Related links</h3>
+
+<p>Other users are reporting the same problem. It occurs not only on G5 machines, but also on G4's with both ATI and NVidia graphic cards.</p>
+
+<ul>
+<li>Macfixit: <a href="https://web.archive.org/web/2004/http://www.macfixit.com/article.php?story=20040303033219803">Incorrect colors in Mac OS X 10.3</a></li>
+<li>Macfixit: <a href="https://web.archive.org/web/2004/http://www.macfixit.com/article.php?story=20040305085310253">Incorrect colors in Mac OS X 10.3.x: More solutions</a></li>
+<li><a href="https://web.archive.org/web/2004/http://discussions.info.apple.com/WebX?@.688f9ed9">Apple discussions: Video issue</a></li>
+<li>This article on <a href="https://web.archive.org/web/2004/http://discussions.info.apple.com/webx?@.688fdd05">Apple discussions</a></li>
+</ul>
+
+
+<h3>Screenshots of the color distortion</h3>
+
+<img src="../media/afbeeldingen/osx_bad_01.jpg" width="385" height="221" alt="Bad" />
+<p>Click here to see <a href="../media/afbeeldingen/osx_ok_01.jpg">how this is supposed to look like</a>.</p>
+
+<img src="../media/afbeeldingen/osx_bad_02.jpg" width="385" height="221" alt="Bad" />
+<p>Click here to see <a href="../media/afbeeldingen/osx_ok_02.jpg">how this is supposed to look like</a>.</p>
+
+<img src="../media/afbeeldingen/osx_bad_03.jpg" width="385" height="221" alt="Bad" />
+<p>Click here to see <a href="../media/afbeeldingen/osx_ok_03.jpg">how this is supposed to look like</a>.</p>
+
+<img src="../media/afbeeldingen/osx_bad_04.jpg" width="385" height="221" alt="Bad" />
+<p>Click here to see <a href="../media/afbeeldingen/osx_ok_04.jpg">how this is supposed to look like</a>.</p>
+</article>
+<section class="reacties"><h3>Reacties</h3>
+<div class="comment"><p class="commentheader">Mauro Notarianni - Italy op 8 maart 2004</p><p>Maybe you pressed a  keyboard shortcuts to enable &#8220;Universal Access&#8221; different color scheme. Check in System Preferences -&gt; Universal Access if you change to default color of the system.</p></div>
+<div class="comment"><p class="commentheader">Alden Cates op 8 maart 2004</p><p>Check the Universal Access Preference Pane... make sure &#8220;Enhance contrast&#8221; is set to &#8220;Normal.&#8221; Somehow, it was set one or two notches higher when upgrading to Panther and my screen was all messed up! Correcting this setting fixed my problem :)</p></div>
+<div class="comment"><p class="commentheader">Frederik Vandaele op 9 maart 2004</p><p>Well, the Universal access thing is not the issue here. Everything is set to normal. Thank you for your help though...</p></div>
+<div class="comment"><p class="commentheader">John Sawyer op 9 maart 2004</p><p>You say you deleted every file in your user folder that could have something to do with colors and displays; but did you delete or replace any of the other files that you left intact, that you THINK shouldn't have anything to do with colors or displays?  Also, did you look for any invisible files in your user folder?</p></div>
+<div class="comment"><p class="commentheader">Frederik Vandaele op 9 maart 2004</p><p>I deleted every setting or cache file that might be suspicious (used Thinkertool to show all the invisible files on my hard drive.). I even went further, by deleting all files of which I did not know what they were there for (I wanted to reinstall anyway). I cleaned all caches with several utilities. Failed ;-(
+</p><p>But! I have found a solution! Eureka! I unplugged my screen while Panther reinstalled itself (just after the first reboot). When I heard the welcome-music playing, I plugged it back in. The result was that I had to complete the installation and registration in a 640*480 resolution. When Panther had finished, I switched to a higher resolution, put the Color profile to sRGB and... everything looked normal!
+</p><p>Seems like Panther loads a corrupt driver for the screen during install which you cannot unload afterwards. Strange thing is... in a new user account, everything looks normal. The driver/setting must therefore be somewhere in the user-folder, but WHERE?!</p></div>
+<div class="comment"><p class="commentheader">PT op 30 maart 2004</p><p>We are having the same problem. Please let me know if there is a way to fix it w/o reinstalling the system. Newly created user VGA color look fine. The existing VGA color is bad.</p></div>
+<div class="comment"><p class="commentheader">Frederik Vandaele op 4 april 2004</p><p>Sorry, I don't think you can solve this problem without reinstalling...</p></div>
+</section>
+<nav class="bladeren"><a class="vorige" href="n629.html">&laquo; Woutel</a><a class="volgende" href="n637.html">Ook zo druk? &raquo;</a></nav><div class="itemDivider">&nbsp;</div>
+<footer id="footer">
+<p><img src="../assets/madeonamac.gif" alt="Made on a Mac" width="88" height="31"></p>
+<p>Archief van scene24.net, het weblog van Frederik Vandaele (2002-2012).</p>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+    $Id: phpnuke.pod,v 1.7 2002/05/23 08:02:38 tangledhelix Exp $
+
+  PHP-Nuke, PostNuke, PHPWebSite and PHPWebThings compatibility
+
+    Mig can be configured to try to fit into PHP-Nuke, PostNuke, PHPWebSite
+    and PHPWebThings sites. (For simplicity I refer to these collectively as
+    "Nuke" sites in this document.)
+
+    Where to find information about these packages:
+
+    PHP-Nuke
+        http://www.phpnuke.org/ (tested with 5.5)
+
+    PostNuke
+        http://www.postnuke.com/ (tested with 0.714)
+
+    PHPWebSite
+        http://phpwebsite.appstate.edu/ (tested with 0.8.2)
+
+    PHPWebThings
+        http://www.phpdbform.com/ (tested with 0.41)
+
+    Find your Nuke directory. For example we'll say this is
+    /www/mysite.com/nuke
+
+    Create a subdirectory called mig (i.e. /www/mysite.com/nuke/mig). Put
+    all the files into that folder as described in the install document,
+    except for the following changes.
+
+    1.  Instead of the templates that the install document mentions, copy
+        over the two files in templates/phpnuke. The HTML and CSS files Mig
+        normally uses are not used in Nuke mode.
+
+    2.  Copy index.php to your Nuke directory, not to the mig subdirectory.
+        And call it mig.php, not index.php. Make sure you rename it before
+        you move it, so you do not over-write your Nuke site's index.php
+        file.
+
+    3.  Copy config.php.default to config.php in your Mig subdirectory, if
+        you don't already have one there. Make sure you do not copy
+        config.php into your Nuke directory, since Nuke has its own file
+        called config.php and you must be careful not to destroy it.
+
+    4.  Edit Mig's config.php and set `$phpNukeCompatible' to TRUE. Change
+        `$phpNukeRoot' to your Nuke directory (i.e. /www/mysite.com/nuke) -
+        not the Mig directory, but your Nuke directory.
+
+        (If you're using phpWebThings, you want instead to use the options
+        `$phpWebThingsCompatible' and `$phpWebThingsRoot').
+
+    That should be it - http://yournukesite.com/mig.php should work.
+
+    PostNuke, PHPWebSite and PHPWebThings users can add Mig to their menus
+    like anything else, just giving mig.php as the target to load.
+
+    PHP-Nuke users need a little more work to get their module in place due
+    to PHP-Nuke's module system. In your modules directory, create a new
+    module, such as Photo_Gallery and put this in a file called index.php
+    inside the module directory:
+
+        <?php
+            $baseHref = ereg_replace('/modules.*$', '', $PHP_SELF);
+            header("Location: http://$SERVER_NAME$baseHref/mig.php");
+        ?>
+
+    Making sure there are no blank lines before the first line or after the
+    last line! If you don't want to cut and paste or type that in, you can
+    find this code in the phpnuke_module.php file in the mig-contrib package
+    also (available in the `Extras' section on the web site).
+

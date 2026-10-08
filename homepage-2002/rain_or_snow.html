@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>[rain_or_snow]</title>
+<style>
+body { margin: 0 8px; background: #1c2333; }
+p, td { font: 11px/1.4 Arial, Helvetica, sans-serif; color: #ccd; letter-spacing: 1px; }
+.drop { position: fixed; left: 0; top: 0; pointer-events: none; color: white; }
+</style>
+</head>
+<body>
+<script>
+// Herschreven in 2026: het origineel werkte enkel in Internet Explorer (document.all).
+// Het oorspronkelijke script staat onderaan de pagina.
+(function () {
+  var snow = true, drops = 10, speed = snow ? 1 : 50, angle = snow ? 10 : 6;
+  var sym = snow ? ' * ' : " ' ", movex = -speed / angle, d = [];
+  var maxx = innerWidth - 40, maxy = innerHeight - 40;
+  for (var i = 0; i < drops; i++) {
+    var el = document.createElement('div');
+    el.className = 'drop'; el.textContent = sym;
+    el.style.fontSize = (Math.random() * 10 + 20) + 'px';
+    el.style.color = snow ? 'white' : 'blue';
+    document.body.appendChild(el);
+    d.push({ el: el, x: Math.random() * maxx, y: -100 - Math.random() * maxy, v: Math.random() * 5 + speed / 4 });
+  }
+  (function move() {
+    d.forEach(function (p) {
+      p.x += movex; p.y += p.v;
+      if (p.x < 0) p.x = maxx + 10;
+      if (p.y > maxy) p.y = 10;
+      p.el.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)';
+    });
+    requestAnimationFrame(move);
+  })();
+})();
+</script>
+
+
+
+
+
+
+
+<table border="0">
+<tr>
+<td><br>
+<p><b>Create a rain or snow effect without a jpg or gif !</b></p>
+
+<br>
+<p>&lt;script language="javascript"&gt;<br>
+snow = true; // false-rain; true-snow<br>
+snowsym = " * " //These are the symbols for each<br>
+rainsym = " ' " //You can put images here.<br>
+howmany = 10 //How many drops/snowflakes?</p>
+
+<p>if(snow){sym = snowsym; speed=1; angle=10; drops=howmany}<br>
+else{sym = rainsym; speed=50; drops=howmany; angle=6}<br>
+movex = -speed/angle; movey = speed; count = 0;</p>
+
+<p>function moverain(){<br>
+for(move = 0; move &lt; drops; move++){<br>
+xx[move]+=movex; yy[move]+=mv[move];<br>
+hmm = Math.round(Math.random()*1);<br>
+if(xx[move] &lt; 0){xx[move] = maxx+10;}<br>
+if(yy[move] &gt; maxy){yy[move] = 10;}<br>
+drop[move].left = xx[move]<br>
+drop[move].top = yy[move]+document.body.scrollTop;<br>
+}setTimeout('moverain()','1')}<br>
+&lt;/script&gt;</p>
+
+<p>&lt;script language="javascript"&gt;<br>
+if (document.all){<br>
+drop = new Array(); xx = new Array(); yy = new Array(); mv = new Array()<br>
+ly = "document.all[\'"; st = "\'].style"<br>
+for(make = 0; make &lt; drops; make++){<br>
+document.write('&lt;div id="drop'+make+'" class=drop&gt;'+sym+'&lt;/div&gt;');<br>
+drop[make] = eval(ly+'drop'+make+st);<br>
+maxx = document.body.clientWidth-40<br>
+maxy = document.body.clientHeight-40<br>
+xx[make] = Math.random()*maxx;<br>
+yy[make] = -100-Math.random()*maxy;<br>
+drop[make].left = xx[make]<br>
+drop[make].top = yy[make]<br>
+mv[make] = (Math.random()*5)+speed/4;<br>
+drop[make].fontSize = (Math.random()*10)+20;<br>
+if(snow){col = 'white'}else{col = 'blue'}<br>
+drop[make].color = col;<br>
+}<br>
+window.onload=moverain<br>
+}<br>
+&lt;/script&gt;</p>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

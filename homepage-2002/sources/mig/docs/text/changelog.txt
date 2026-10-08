@@ -1,0 +1,827 @@
+    $Id: changelog.pod,v 1.19 2002/06/11 07:11:12 tangledhelix Exp $
+
+  MIG Change Log
+
+  Version 1.3.4 (Tue, 11 Jun 2002)
+
+    Added Estonian and Japanese translations.
+
+    Fixed formatting issue in `folderFrame()' (fix provided by Jan
+    Jasinski).
+
+    Changed all occurrences of `NULL' to empty strings. Apparently `NULL'
+    was not introduces until PHP4, so using `NULL' was breaking PHP3
+    compatibility.
+
+    Added number of folders in addition to number of images when
+    `$viewFolderCount' is `TRUE'.
+
+    Fixed a bug in `getImageDescFromFile()' where a comment would be
+    incompletely read if the file did not end with a newline character.
+
+    Added config.php options `$convertPathFlag', `$convertPathRegex', and
+    `$convertPathTarget' for cases where weird `include_path' munging is
+    required. See near the bottom of config.php.default.
+
+    Added new config.php options `$imagePopLocationBar', `$imagePopMenuBar',
+    and `$imagePopToolBar' to control various toolbars being visible or
+    hidden in pop-up windows.
+
+    Added `is_dir()' checks before all calls to `opendir()'.
+
+    Modified comment behavior when using `$commentFilePerImage = TRUE' so
+    that if a comment file is not present, the comment from mig.cf will be
+    used (if one is present).
+
+  Version 1.3.3 (Mon, 27 May 2002)
+
+    Apparently I didn't document it in the changelog, but at some point I
+    added code to `printTemplate()' to check for drive letters in the
+    pathname to the template file (as opposed to just looking for a leading
+    / character). This change was in the 1.3.2 release and possibly earlier.
+
+    Updated Danish translation with patch from Mikkel Kristensen.
+
+    Tested Nuke mode with PHPWebSite 0.8.2, works fine with no changes.
+    Updated phpnuke document to reflect this.
+
+    Merged patch from Pawel Dylik to implement pagination of large
+    galleries. This resulted in the new config.php option `$maxThumbRows',
+    and a new language element `total_images' found in the language sets.
+    Right now, there's a slight bug in this behavior. If you click an image
+    while on say, page 2, then use the next-image link a bunch of times
+    until you get to an image that would be on page 3, if you then go back
+    to thumbnail view, you end up back on page 2. For now I will let this
+    sit, because fixing it would require rewriting a lot of code for little
+    real benefit.
+
+    Added code so the pagination now shows you which images you are viewing
+    (i.e. 21-40 of 49).
+
+    Added `$randomFolderThumbs' to config.php. If `TRUE', a random thumbnail
+    from the folder will be used as the icon rather than the generic folder
+    icon (unless a `FolderIcon' is set in mig.cf - that takes precedence).
+    If a given folder has no thumbs (i.e. it has only other folders inside),
+    Mig will traverse subdirectories until it finds a usable thumbnail. If
+    it can't find one the generic folder icon is used instead. (This was
+    another Pawel patch.)
+
+    Added `$folderNameLength' to config.php. When `$randomFolderThumbs' is
+    `TRUE', folder names are truncated if they are longer than
+    `$folderNameLength' characters (to help with table formatting). (Another
+    Pawel patch.)
+
+  Version 1.3.2 (Tue, 21 May 2002)
+
+    Some major changes this release - please pay attention!
+
+    Eliminated install.sh - all installs are now done the same way (Windows,
+    unix, FTP, shell prompt, whatever). Eliminated FTPinstall and Windows
+    documents since they are now redundant. New installation procedure is
+    documented in the install document.
+
+    PHP-Nuke mode was no longer working, so I fixed it. While I was at it, I
+    added PostNuke and phpWebThings compatibility. See the phpnuke document.
+    Tested with PHP-Nuke 5.5, PostNuke 0.714 and phpWebThings 0.41. Added
+    config variables `$phpWebThingsCompatible' and `$phpWebThingsRoot' to
+    config.php for the new phpWebThings mode.
+
+    Changed language designation for Danish to "dk" instead of "da" (I don't
+    know what "da" is, but it's not Denmark).
+
+    Removed Example Gallery from main distribution. It will be available
+    from this point forward as a separate package on the site. There's no
+    reason for every Mig download to be almost half a meg (the 1.3.2b1
+    tar.gz I built is under 150K).
+
+    Added `MaintAddr' object to mig.cf parser (thanks to Simon Wood for
+    supplying this code!). This permits you to change the value of
+    `$maintAddr' on a per-folder basis if desired.
+
+    Fixed regex bug that caused the exposure time (from EXIF data) to be
+    incorrectly reported in some circumstances.
+
+    General cleanup of documentation.
+
+    Modified mkGallery.pl to look for jhead in "." - simplifies the task of
+    finding it.
+
+    Entirely restructured the CVS tree. When the smoke cleared, funcs.php
+    and lang.php had vanished (merged into index.php). Mig is just one file
+    now (well, the PHP code is anyway), plus a config file written in PHP.
+
+    Eliminated `$useVirtual' - it was not being used by `printTemplate()'
+    anymore.
+
+    Modified mkGallery.pl to use thumbnail subdirectories by default.
+
+    Added `-f' flag to mkGallery.pl, so one can specify the path to the
+    config.php file if so desired.
+
+    Deprecated the `$viewCamInfo' and `$viewDateInfo' options. Everything
+    related to EXIF formatting is now controlled by the `$exifFormatString'
+    variable found in config.php. Information on how to use it can be found
+    in config.php.default.
+
+  Version 1.3.1 (Tue, 07 May 2002)
+
+    [Sourceforge bug report #467122] - Fixed sorting bug (if `$sortType' was
+    set to anything other than `default', the thumbnails would be sorted,
+    but the images would actually be out of order as far as the
+    next/previous links were concerned. Turns out the sorting had made it
+    into `buildImageList()' but not `buildNextPrevLinks()'.
+
+    [Sourceforge bug report #512980] - Removed two extraneous arguments in a
+    call to `printTemplate()'. This hadn't caused me any trouble, but if
+    `error_reporting' was set to include `E_NOTICE', errors would be
+    generated.
+
+    [Sourceforge feature request #521109] - Now when invoked with `-c',
+    mkGallery will also add a <Bulletin> tag to mig.cf. In interactive mode
+    it will ask the user for the bulletin text, otherwise it will just
+    create an empty bulletin.
+
+    [Sourceforge feature request #521032] - Added new config variable
+    `$commentFilePerImage' (default `FALSE'). When set to `TRUE', Mig looks
+    for comments in a separate file for each image rather than looking for
+    all comments in mig.cf. For example if you have IMG_4900.JPG, Mig would
+    look at IMG_4900.txt for the comment. Unlike mig.cf, a comment in one of
+    these files does not need to be enclosed in a <Comment> block. The
+    entire file is used as the comment. Mig will strip newlines and tabs
+    out. When `$commentFilePerImage' is `FALSE', normal processing of
+    comments using the mig.cf file happens.
+
+    Changed filename of configuration file from mig.cfg to config.php. This
+    is simply to avoid having people rummaging through your config with
+    their web browser. The install script will attempt to handle this
+    gracefully for you, or you can just rename files yourself.
+
+    Changed default value of `$useThumbSubdir' to TRUE. Changed example
+    gallery to match.
+
+    Upgraded jhead to version 1.6.
+
+  Version 1.3.0 (Tue, 23 Apr 2002)
+
+    Added <TITLE> tags in thumbnail views so when hovering over a thumbnail,
+    you get the comment whether using Mozilla/Gecko/Netscape or Internet
+    Explorer. `$suppressAltTags' will also suppress the <TITLE> tags.
+
+    Added Polish translation.
+
+    Replaced Italian translation with cleaner one from Marco Ermini.
+
+    Added date/time stamp parsing to `getExifDescription()'. This can be
+    activated by setting `$viewDateInfo' to `TRUE' in mig.cfg. (It is
+    `FALSE' by default).
+
+    Changed `getExifDescription()' formatting slightly. Changed f-stop
+    display to omit any '/' if present.
+
+  Version 1.2.9 (Thu, 16 Aug 2001)
+
+    Added `$imagePopup' and `$imagePopType' to mig.cfg.default. Using these
+    one can have pop-up windows enabled. See docs/INSTALL.
+
+    [Sourceforge bug report #441188] - Fixed a bug in the handling of
+    `$viewFolderCount'. Previously, if a folder was mentioned in a <sort>
+    block, it would be ignored when `$viewFolderCount' was evaluated. Now
+    `$viewFolderCount' is properly applied to all folders that contain
+    images, whether they are sorted or not.
+
+    [Sourceforge bug report #442760] - Fixed a bug in
+    `getExifDescription()'. The string `flash used' was hard-coded rather
+    than being included in the language library.
+
+    Upgraded to most recent revision of jhead to get ISO rating support.
+
+    Added ISO rating to EXIF info parser.
+
+    Fixed bug in ALT tag (there was no space before the SRC and ALT bits).
+
+  Version 1.2.8 (Fri, 29 Jun 2001)
+
+    Added Italian and Spanish translations.
+
+    [Sourceforge feature request #416337] - Modified the ALT tag code such
+    that HTML entities within <comment> blocks should be OK now even if
+    hover-over comments are being used in thumbnail views.
+
+    Added Slovak and Dutch translations.
+
+    [Sourceforge feature request #414831] - Added `$viewCamInfo' to
+    mig.cfg.default. If set to `TRUE' and an exif.inf is present in a given
+    gallery folder, it will be read to try to extract camera model, and
+    frame exposure information for display on the page.
+
+    [Sourceforge feature request #424166] - Added `$viewFolderCount' to
+    mig.cfg.default. If set to `TRUE', the number of images in a given
+    folder will be displayed next to the folder's name in parentheses, in a
+    folder list view.
+
+    [Sourceforge feature request #414827] - Added `FolderIcon' entity to
+    mig.cf parser. Lets you define something other than folder.gif as the
+    icon for a folder. You can define each folder with any icon you want.
+    Default is still folder.gif.
+
+    [Sourceforge feature request #414827] - Added `FolderTemplate' entity to
+    mig.cf parser. This allows for a template file to be defined within the
+    folder itself, specific to that folder. Or you can define a full path if
+    you wanted.
+
+    [Sourceforge feature request #414827] - Added `PageTitle' entity to
+    mig.cf parser. Allows for a per-folder pageTitle to be set.
+
+    [Sourceforge feature request #414827] - Added `MaxFolderColumns' and
+    `MaxThumbColumns' entities to mig.cf parser. This permits custom column
+    settings per folder.
+
+  Version 1.2.7p1 (Sun, 15 Apr 2001)
+
+    Fixed bug from 1.2.7 which caused images to show up as folders when both
+    folders and images were present.
+
+  Version 1.2.7 (Sat, 14 Apr 2001)
+
+    Added Danish translation.
+
+    Modified template parser so that you can use `#include' to include PHP
+    files (files with extensions `.php' or `.php3').
+
+    Added docs/FTPinstall.txt for people who have only FTP access to their
+    server and no shell access (i.e. they can't run install.sh).
+
+    Streamlined code where possible.
+
+    Got rid of repeated parses of mig.cf in subroutines and created
+    `parseMigCf()' to just do it once to save time and effort on file I/O.
+
+  Version 1.2.4 (Mon, 09 Apr 2001)
+
+    Added Swedish translation.
+
+    Removed all calls to `die()' since they seemed to not work in all
+    versions of PHP.
+
+  Version 1.2.3 (Mon, 09 Apr 2001)
+
+    Removed install.bat, rewrote docs/Windows.txt to match.
+
+    Rewrote install.sh for new directory layout (which was a side-effect of
+    making Windows installs easier).
+
+    Adjusted all server variables so that things should work whether
+    `register_globals' or `track_vars' are in use (or both).
+
+    Found a hard-coded directory in `printTemplate()' - corrected.
+
+  Version 1.2.2 (Sun, 08 Apr 2001)
+
+    Added language definition for Turkish.
+
+    Changed all occurrences of `$language' to `$mig_language' because of a
+    suspected conflict with a variable name in PHP-Nuke.
+
+  Version 1.2.1 (Fri, 06 Apr 2001)
+
+    Fixed a bug where folks with `track_vars = Off' would break.
+
+    Added translations for Russian Windows-1251 and Russian KOI8-R.
+
+  Version 1.2 (Fri, 06 Apr 2001)
+
+    Added `$suppressAltTags' to mig.cfg - when set to `TRUE', ALT tags are
+    not added in thumbnail lists.
+
+    Added `$useVirtual' in mig.cfg - when set to `FALSE', `virtual()' is not
+    tried. This is for people who for some reason don't have `virtual()'
+    support in their PHP installation.
+
+    Fixed `printTemplate()' so it only fetches the image size if there's an
+    image to fetch the size for. This had been causing a problem under some
+    conditions.
+
+    Added multi-language support (so far English and French translations).
+    See the `$language' variable in mig.cfg.default.
+
+    Added `$sortType' to mig.cfg.default.
+
+    Fixed bug that caused trouble with folks not using `register_globals'.
+
+    Added translations for German, Norwegian, Portugese, Finnish, Romanian.
+
+  Version 1.1 (Thu, 28 Dec 2000)
+
+    Added docs/Apache.txt with useful tips and tricks for Apache users.
+
+    Added support for password-protected folders. See docs/Passwords.txt.
+
+    Added support for thumbnail subdirectories. See docs/Install.txt,
+    docs/Utilities.txt, and mig.cfg.default.
+
+    Added code to accomodate sites using `magic_quotes_gpc'.
+
+    Fixed bug with `PATH_INFO' jump tags.
+
+    Added `$noThumbs' boolean to mig.cfg.default. See docs/Install.txt.
+
+    Added `$thumbExt' to mig.cfg.default. See docs/Install.txt.
+
+    Fixed bug in `parseMyConfig()' in mkGallery which caused a bad data set
+    to be returned if the config file couldn't be read.
+
+    Rewrote mkGallery to accomodate `$thumbExt'.
+
+    Upgraded the bundled jhead distribution to 1.0. Updated install.sh and
+    mkGallery to accomodate. No action on the part of users should be needed
+    since the command-line syntax and output format of jhead is the same.
+
+    (Duh!) Added Matthias Wendel (author of jhead) to docs/Credits.txt.
+
+    Turned `magic_quotes_runtime' off by default - we don't do anything in a
+    write mode and I don't see any advantage or safety offered by
+    `magic_quotes' for this application.
+
+    Using `$HTTP_GET_VARS' array now for people using `register_globals =
+    Off'.
+
+    Will start distributing .ZIP and .tar.gz formats from now on.
+
+    Added `$maxThumbColumns' and `$maxFolderColumns' to mig.cfg.default.
+    `$maxColumns', if present, will be used as the default value of
+    `$maxThumbColumns'. This lets people use something other than a single
+    column for folder listings.
+
+  Version 1.0 (Wed, 06 Dec 2000)
+
+    You can now type "quit" at any prompt during install.sh to abort.
+
+    install.sh and PHP code revamped and retested for PHP-Nuke compatible
+    mode. Now the Mig install (except for mig.php and mig.cfg) are sandboxed
+    into the mig subdirectory rather than being right in the base PHP-Nuke
+    directory.
+
+    Changed mig.cfg.default to use `TRUE' & `FALSE' rather than 1 and 0 for
+    boolean options.
+
+    Added `$suppressImageInfo' to mig.cfg.default - boolean option which
+    controls whether to suppress the information printed below thumbnail
+    images on thumbnail view pages.
+
+  Version 0.99 (Thu, 16 Nov 2000)
+
+    Not an enhancement, but I finally got around to trying out symlinks. Put
+    a bit about this in docs/Install.txt.
+
+    Added a new file docs/Credits.txt where I will credit folks who have
+    contributed bits of code, found bugs, etc.
+
+    Added PHP-Nuke compatibility mode (see docs/phpNuke.txt). Only of
+    interest to folks using, or interested in using, PHP-Nuke.
+
+    Updated install.sh for phpNuke mode, and tried to make it a little
+    smarter about some things.
+
+    Removed convert-metafiles from the main distribution and make it a
+    contrib script instead. mf_conv.pl, too.
+
+    Added the `PATH_INFO' method for Jump URLs. See docs/Jump.txt.
+
+    Added `-n' and `-r' switches to mkGallery. See docs/Utilities.txt.
+
+    Revamped `#include' for Apache users so it can execute CGI's too. See
+    docs/Templates.txt.
+
+    Fixed `buildNextPrevLinks()' to use an array as its return value instead
+    of the (uglier) string concatenation method.
+
+  Version 0.98 (Sun, 05 Nov 2000)
+
+    Added jump URL tags. See docs/Jump.txt for more information.
+
+  Version 0.97 (Sat, 04 Nov 2000)
+
+    Fixed table formatting problem in `imageFrame()' which caused an extra
+    cell to be printed which was visible as a small line in IE browsers.
+
+  Version 0.96 (Thu, 02 Nov 2000)
+
+    Updated docs/Install.txt with notes about file permissions.
+
+    Fixed bug in `buildNextPrevLinks()' - it was ignoring <Sort> lists.
+
+    Happy birthday, Katie!
+
+  Version 0.95 (Tue, 31 Oct 2000)
+
+    Ran the example gallery through a `mogrify -quality 40' to reduce the
+    size of the download tarball. Went from just over 600KB to about 340KB.
+    Amazingly, I can't even tell the difference viewing the images.
+
+    Removed a hard-coded value from `buildImageURL()' which broke things for
+    folks who had changed the value of `$albumDir'.
+
+    Made the terms of the licensing clearer according to the FSF GNU
+    guidelines at http://www.gnu.org/copyleft/gpl.html .
+
+    Did a code review looking for potential problems, made minor
+    adjustments.
+
+    Added interactive (-i) mode to util/mkGallery. See docs/Utilities.txt.
+
+    Happy Halloween!
+
+  Version 0.94 (Sat, 28 Oct 2000)
+
+    mkGallery will now sort items before handling them, so output files like
+    the comment file will have items alphabetically (for simplicity).
+
+    Fixed bug in `buildDirList()' that didn't do the rendering of spaces and
+    underscores correctly (they should be rendered as `&nbsp;').
+
+    Fixed bug in `buildDirList()' which caused cascading links in the output
+    HTML. This was not very noticeable until one had a large list of folders
+    (where large is just a few tens of directories). A string was not being
+    properly reset at the beginning of each loop iteration.
+
+  Version 0.93 (Tue, 17 Oct 2000)
+
+    Added a question to install.sh which asks the user if they are upgrading
+    from 0.83 or earlier (so not everyone for the rest of time has to run
+    convert-metafiles anytime they upgrade).
+
+    install.sh will no longer try to guess what directory to install into.
+
+    Discovered that when moving from one page to the next, the
+    `text-decoration' CSS property for anchors (<A> elements) was not reset.
+    So if you set `text-decoration=none' it would memorize that and not go
+    back to using underlines. So I defined `A:*' as having
+    `text-decoration=underline' in templates/style.css (which is what you'd
+    expect to see becaues most browsers underline links by default).
+
+    Changed link on image view pages that goes back to read "back to
+    thumbnail view". Previously it read "back to folder view" but it has
+    been pointed out to me that the wording was confusing.
+
+    Discovered the amazing function `GetImageSize()'. Now all thumbnail
+    views will use `width= height=' for the thumbnails (this helps speed up
+    the browser's rendering of tables), and thumbnail views now show the
+    image size in both pixels and bytes. Single image views will use `width=
+    height=' as well, to help the browser in its rendering task.
+
+    Added new tag `%%imageSize%%' to the image.html template.
+
+    Switched from using `$SCRIPT_NAME' to using `$PHP_SELF'. This basically
+    means Mig should work for people using PHP's CGI mode now.
+
+    Implemented <Sort> element in mig.cf - see docs/mig_cf.txt.
+
+  Version 0.92 (Mon, 02 Oct 2000)
+
+    Plugged a security hole (`$currDir' wasn't being checked for '..') which
+    let viewers see the entire directory stucture of a system. Anyone using
+    anything prior to 0.92 should upgrade immediately!
+
+  Version 0.91 (Sat, 30 Sep 2000)
+
+    Fixed a bug in mf_conv.pl which caused the comment conversion process to
+    cascade itself... it stored a list of images and comments in memory, but
+    when it entered a new directory it was not cleaning that out, so every
+    mig.cf had comments for all the files in all the directories it had seen
+    before. Not particularly dangerous but it litters your mig.cf files
+    badly. This is only a problem for folks who upgraded from a release of
+    Mig version 0.83 or earlier to Mig 0.90.
+
+  Version 0.90 (Sat, 30 Sep 2000)
+
+    Created install.sh to act as an installer script. Reorganized the
+    directory structure somewhat while doing this.
+
+    Updated all documentation.
+
+    Added the `#include' directive to the template processor. See the file
+    docs/Templates.txt for information.
+
+    Added Windows doc docs/Windows.txt for Windows users. Working on .EXE
+    automatic-style installation program.
+
+    Changed name of EXIF header cache file to exif.inf.
+
+    Because install.sh checks for existing template files and tries to
+    figure out the proper thing to do (asking for input if needed),
+    hopefully the risk of the installation process blowing away customized
+    templates has been eliminated (or at least reduced greatly). Well,
+    unless you happen to use Windows, where I have less versatility with
+    installation processes. See docs/Windows.txt for notes on that topic.
+
+    Devised Apache-like format for meta file mig.cf which will hold
+    comments, hidden file lists, etc. This will replace .comments.txt,
+    .hidden.txt, etc. EXIF header info will still live in exif.inf (formerly
+    known as .exif_comments.txt). Documentation is in docs/mig_cf.txt.
+
+    Updated all files to reflect new domain "tangledhelix.com".
+
+    Converted all colorization to use CSS stylesheets. However, Netscape
+    doesn't behave regarding the `BODY' element and CSS, based on my tests.
+    So there's a default color set in the `BODY' tag in the HTML templates.
+    See the file docs/Templates.txt for more information.
+
+    Added tag `%%distURL%%' for templates. Removed "MigE,<quot> from <TITLE>
+    in the default templates.
+
+    Added script convert-metafiles to convert metafiles to new format. It
+    calls a Perl child process, mf_conv.pl.
+
+    Installer tries to find Perl and if so, sets the #! line for Perl-based
+    utility scripts. This is because folks have Perl installed in places
+    that are hard to predict but which are probably in their `$PATH'.
+
+    Added <Bulletin> feature to mig.cf. See docs/mig_cf.txt for info.
+
+    "_" (underscore) is now rendered as a space character in the YouAreHere
+    line as well as in the folder-list boxes.
+
+    Got <Comment> working, got EXIF parsing working.
+
+    Now in folder / thumbnail views, image comments are loaded as ALT tags,
+    so they will pop-up as text when you hover over a link.
+
+    Fixed bug which caused images with spaces in their filename to be
+    handled improperly.
+
+    Added `$markerType' and `$markerText' to mig.cfg.default. Added `-m' and
+    `-M' flags to mkGallery. These were added to support customizable
+    thumbnail naming conventions. You can now decide what thumbnail marker
+    name to use (previously was forced to be "th". Also now you can declare
+    it to be a prefix (as in "th_filename.JPG") or a suffix (as in
+    "filename_th.JPG"). Default will be as previous, suffix mode using "th"
+    for filename_th.JPG. See docs/Utilities.txt and docs/Install.txt and
+    mig.cfg.default for more information.
+
+    Updated mkGallery to read `$markerType' and `$markerLabel' from mig.cfg,
+    so you don't have to worry about the `-M' and `-m' flags as long as your
+    mig.cfg has the right options set.
+
+    Changed `slashFixedURLencode()' to `migURLencode()'.
+
+    Fixed bug in `migURLencode()' where it would re-encode something which
+    was already encoded resulting in a comma becoming `%252C' instead of
+    say, `%2C'. It now runs input through `rawurldecode()' prior to doing a
+    `rawurlencode()' on it.
+
+    Added `-c' option to mkGallery - this will populate the mig.cf file with
+    blank <Comment> elements. It was adapted from mkComments, which was
+    contributed by André Fadel (fadel at fee.unicamp.br). See
+    docs/Utilities.txt for information.
+
+    Fixed bug in `getExifDescription()' which was returning incorrect
+    values.
+
+    Found bug in the convert-metafiles script which caused directories with
+    spaces in the filename to wig the script out. Fixed.
+
+    Fixed bug in regex used to find comment lines in `getExifDescription()'
+    which would cause extremely long execution times when dealing with large
+    exif.inf files.
+
+    Fixed bug which caused improper display of filesizes in thumbnail views.
+
+  Version 0.83 (Thu, 24 Aug 2000)
+
+    Images and folders are now sorted alphabetically, to make the sorting
+    consistent, if not (yet) completely customizable.
+
+  Version 0.82 (Thu, 24 Aug 2000)
+
+    Fixed bug in mkGallery that caused problems parsing filenames with
+    embedded spaces.
+
+  Version 0.81 (Sat, 12 Aug 2000)
+
+    Changed the behavior of `buildYouAreHere()' so the browser can't click
+    on the current item - that is, the current folder or the current image.
+    It just seemed silly to recreate the browser's reload button.
+
+  Version 0.80 (Sat, 12 Aug 2000)
+
+    The pieces of the "you are here" headline are now clickable for simpler
+    navigation between levels.
+
+    Changed the style sheet so the links are underlined again. People aren't
+    used to having it any other way, it was causing confusion.
+
+    Got `newCurrDir' out of the URI string which makes the URL about 50% as
+    long as before. This entailed adding `getNewCurrDir()' calls.
+
+  Version 0.77 (Sat, 12 Aug 2000)
+
+    Added style sheet support. See the file templates/style.css.
+
+  Version 0.76 (Fri, 11 Aug 2000)
+
+    Rearranged the layout in image.html to make it friendlier for small
+    screens.
+
+  Version 0.75 (Tue, 08 Aug 2000)
+
+    Fixed overpadded image tables.
+
+  Version 0.74 (Mon, 07 Aug 2000)
+
+    Cleaned up the HTML layout (mostly shuffling, adding, deleting <BR>).
+
+  Version 0.73 (Mon, 07 Aug 2000)
+
+    Added a "now viewing #x of y" in image views, so the browser can easily
+    tell how many images are left in either direction without returning to
+    the thumbnail view.
+
+  Version 0.72 (Mon, 07 Aug 2000)
+
+    Using colored table cells for comments now. Embedded comments are
+    seperated from file-based comments with an <HR> element.
+
+  Version 0.71 (Mon, 07 Aug 2000)
+
+    Descriptions are centered now.
+
+  Version 0.70 (Mon, 07 Aug 2000)
+
+    Bundled jhead from Matthias Wandel in order to parse EXIF headers. jhead
+    will be a child process of mkGallery when invoked with `-e'.
+
+    Updated mkGallery with new options and code to handle parsing of EXIF
+    headers using the jhead program. See the `-e' and `-w' options. Also
+    added a `-t' option to specify if you should make thumbnails or not
+    (since that's not the only action possible anymore).
+
+    Added function `getExifDescription()' which parses the
+    .exif_comments.txt files for embedded comments and displays them in
+    image views.
+
+  Version 0.61 (Sun, 06 Aug 2000)
+
+    Added "you are here" line, but it's not clickable yet.
+
+  Version 0.60 (Sun, 06 Aug 2000)
+
+    Added "hidden" feature. Anything put into .hidden.txt in a directory
+    will cause the listed items (one per line) to be rendered invisible.
+    This is, of course, optional.
+
+    Cleaned up places where `eregi()' or `eregi_replace()' were used when
+    the proper call was `ereg()' or `ereg_replace()'.
+
+    Added "comment" feature. Comments are stored in .comments.txt. See
+    INSTALL for more information.
+
+  Version 0.51 (Sun, 06 Aug 2000)
+
+    Added `$homeLink' and `$homeLabel' to config, to print a "back to
+    {home}" link at the "root" folder level.
+
+  Version 0.50 (Sat, 05 Aug 2000)
+
+    Set default colors so if `$imageBGcolor' and/or `$folderBGcolor' are
+    missing in the config, it won't default to black.
+
+    Set default `$maxColumns' in case that is omitted from config file.
+
+    Set default `$title' in case that is omitted from config file.
+
+    Set default `$maintAddr' in case that is omitted from config file.
+
+    Got next/previous links working in image views.
+
+    Removed "back" link from "main" or "root" of album.
+
+  Version 0.41 (Fri, 04 Aug 2000)
+
+    Fixed font size bug with back link on "main" page.
+
+  Version 0.40 (Fri, 04 Aug 2000)
+
+    Rewrote mkGallery with `use strict' and `-w'.
+
+    Symlinked index.php3 to index.php for simplicity.
+
+    Replaced "<<" in `buildBackLink()' with `&lt;&lt;' and cleaned up other
+    such bits throughout the code.
+
+    Replaced most spaces in templates & PHP with `&nbsp;' due to odd
+    formatting problems with MSIE.
+
+    Wrote table generation code into PHP and took it out of the template
+    files due to MSIE's stupid insistence on displaying empty tables with a
+    tiny colored square.
+
+    Cleaned up (simplified) templates a little.
+
+    Added variables `$imageBGcolor' and `$folderBGcolor', which are
+    background colors for the table backgrounds for the image and folder
+    tables, respectively. They can be found in mig.cfg.default.
+
+    Documented templates in templates/README.templates.
+
+  Version 0.36 (Tue, 01 Aug 2000)
+
+    Got rid of `$phpExt' - include files aren't seen by the web server
+    anyway, so the extension wasn't relevant.
+
+  Version 0.35 (Tue, 01 Aug 2000)
+
+    Reworked page formatting. Now if there are no folders and no images
+    present, the browser gets "No contents". If no folders, the folder table
+    isn't printed. If no images, the images table isn't printed. If there
+    are both, you see both tables. The result is less confusing.
+
+    If mig.cfg is missing, mig.cfg.default will be read instead, to avoid
+    any errors popping up.
+
+  Version 0.34 (Mon, 31 Jul 2000)
+
+    Added a second back link to each page since pages can grow long enough
+    that having one at the top and one at the bottom is desirable.
+
+  Version 0.33 (Mon, 31 Jul 2000)
+
+    Added filesize to the thumbnails page.
+
+  Version 0.32 (Mon, 31 Jul 2000)
+
+    Fixed a stupid bug (`$maxColumns' was being ignored). Table layouts on
+    thumbnail pages should work now.
+
+  Version 0.31 (Mon, 31 Jul 2000)
+
+    If a thumbnail is missing, a generic image will be used in its place.
+
+  Version 0.3 (Mon, 31 Jul 2000)
+
+    The "back" link is now grayed out when at the "main" page.
+
+    Fixed bug in mkGallery that would cause it to create thumbnails of
+    already-existing thumbnail images.
+
+    Viewing a folder will now show the thumbnail images correctly.
+
+    Added template image.html to view individual images.
+
+    Removed the "you are at" headline, the help function, and the "exit"
+    button. The latter two were never too useful, and the former is a real
+    pain to get working. I'll save it for some future release.
+
+    Added `$phpExt' variable for PHP3 users who might need filenames with
+    `.php3' extensions instead of `.php'.
+
+    Added `$pageTitle' to insert into the <TITLE> element of each template.
+
+    Removed `*currLocation' routines.
+
+    Started using mig.cfg.default for dist bundles to avoid over-writing old
+    config files.
+
+    Fixed a bug which caused image view "back" links to go not to the
+    previous page, but literally to "../".
+
+    Fixed URL pointer in the HTML templates to reflect correct Mig
+    distribution URL.
+
+  Version 0.2 (Sun, 30 Jul 2000)
+
+    The mkGallery utility script is complete. Requires Perl and ImageMagick.
+    No other significant changes in 0.2.
+
+  Version 0.1 (Fri, 28 Jul 2000)
+
+    Got "any directory anywhere" directory browsing working correctly. An
+    album can have any number of directories and subdirectories now. This is
+    much better than the old 2-level directory model.
+
+    Changed direction on the topic of thumbnail generation. It's better to
+    pre-generate them instead of having the PHP code do it on the fly.
+    Having the script get reliable write access to the filesystem proved to
+    be a bit more sloppy than I originally thought.
+
+    The old method of using numeric filenames is gone now (thank god).
+
+    Support for JPEG/GIF/PNG formats should be good enough. Old model of
+    supporting only one file type sucked.
+
+    Nailed down an HTML layout finally, simpler than others I have seen,
+    more attractive than the previous ones used in album.php3.
+
+    Got HTML templates working.
+
+    Added a help link, back link, and a mailto: link to each page. Each page
+    also has a link back to the distribution URL.
+
+    Got the "you are here" path to display, but no links yet.
+
+    Got rid of the old problem from album.php3 where the path had to be
+    statically set in the code ahead of time (and the fact that tilde-URLs
+    like `/~dan/' didn't work). This time around the script figures out
+    where it is in the filesystem and bases everything else on that path.
+
+    Added the "exit" link to take browser to an outside URL.
+

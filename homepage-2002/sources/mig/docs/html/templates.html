@@ -1,0 +1,263 @@
+<HTML>
+<HEAD>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<TITLE>Mig Documentation - templates.html</TITLE>
+<LINK REV="made" HREF="mailto:root@law.uucp">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+<!--
+
+<UL>
+
+	<UL>
+
+		<LI><A HREF="#templates">Templates</A></LI>
+		<LI><A HREF="#about tags">About Tags</A></LI>
+		<LI><A HREF="#including files">Including Files</A></LI>
+		<LI><A HREF="#special files">Special Files</A></LI>
+		<LI><A HREF="#defined tags">Defined Tags</A></LI>
+		<LI><A HREF="#custom perfolder templates">Custom Per-folder Templates</A></LI>
+		<LI><A HREF="#managing colors">Managing Colors</A></LI>
+	</UL>
+
+</UL>
+-->
+<!-- INDEX END -->
+
+<P>$Id: templates.pod,v 1.6 2002/05/21 07:10:01 tangledhelix Exp $</P>
+<P>
+<H2><A NAME="templates">Templates</A></H2>
+<P>Page layout is handled using template files wherever possible.</P>
+<P>
+<H2><A NAME="about tags">About Tags</A></H2>
+<P>Template files are simply HTML files with special tags embedded in
+them.  Mig expands these tags at runtime.</P>
+<P>Tags are surrounded by <CODE>%%</CODE> marks, such as this example:</P>
+<PRE>
+    &lt;title&gt;%%pageTitle%%&lt;/title&gt;</PRE>
+<P>In this case, &quot;pageTitle&quot; is the relevant tag name.</P>
+<P>There is a glossary of tags later in this document.</P>
+<P>If you don't know anything about HTML you can try checking out
+<A HREF="https://web.archive.org/web/2002/http://www.htmlhelp.com/">http://www.htmlhelp.com/</A> or looking for some other online help sites by
+using a search engine such as Google [ <A HREF="https://web.archive.org/web/2002/http://www.google.com">http://www.google.com</A> ].</P>
+<P>Make backups of template files before modifying them in case things don't
+work out as expected.</P>
+<P>
+<H2><A NAME="including files">Including Files</A></H2>
+<P>An &quot;include&quot; function is provided.  To include a file,
+place a directive like this one on a line by itself:</P>
+<PRE>
+    #include &quot;filename&quot;;</PRE>
+<P>Such as:</P>
+<PRE>
+    #include &quot;custom.html&quot;;</PRE>
+<P>The contents of the specified file will be inserted in place of the
+<CODE>#include</CODE> placeholder.</P>
+<P>If the file mentioned by <CODE>#include</CODE> is a CGI file then it will be
+executed, and its output will be placed there instead.  NOTE: CGI can only
+be used with Apache servers (and not even every installation
+of Apache will do this correctly).  Sorry, it's a limitation in PHP
+that I can't work around.</P>
+<P>If including a CGI make sure it prints appropriate HTTP headers
+before anything else (just like any other situation where CGI is used).</P>
+<P>Please note some things about <CODE>#include</CODE>:</P>
+<OL>
+<LI>
+Included files must be located in the <EM>templates</EM> directory.
+<P></P>
+<LI>
+If that's undesirable, a symbolic link will also work.  For example:
+<PRE>
+    ln -s /www/htdocs/includes/custom.html /www/htdocs/mig/templates</PRE>
+<P>This would create a symbolic link <EM>/www/htdocs/mig/templates/custom.html</EM>
+which would point to the real file <EM>/www/htdocs/includes/custom.html</EM>.
+Thus, there's only one copy to maintain.</P>
+<P></P>
+<LI>
+The <CODE>#include</CODE> directive must be on a line by itself.  It will not
+function if anything else is on that line.  Also, the filename
+must be in quotation marks, and the command must be terminated with
+a semicolon.  Here are some examples:
+<PRE>
+    #include &quot;custom.html&quot;;           # RIGHT
+    #include &quot;custom.html&quot;            # WRONG - no semicolon
+    #include custom.html;             # WRONG - no quotes
+    &lt;p&gt;#include &quot;custom.html&quot;;&lt;/p&gt;    # WRONG - not alone on line</PRE>
+<P></P>
+<LI>
+As of version 1.2.5 it is possible to include PHP files as well as other
+types of files.  The one difference is that for PHP files the filename must
+have an extension of either &quot;.php&quot; or &quot;.php3&quot;.
+<P>Look at either <EM>image.html</EM> or <EM>folder.html</EM> for an example (<CODE>#include</CODE>
+is used to embed the CSS style sheet file <CODE>style.css</CODE>).</P>
+<P></P></OL>
+<P>
+<H2><A NAME="special files">Special Files</A></H2>
+<P>There are three special files that Mig uses for its own purposes.</P>
+<UL>
+<LI>
+<EM>templates/folder.html</EM> - used for any view where folders and/or
+thumbnail images are shown.
+<P></P>
+<LI>
+<EM>templates/image.html</EM> - used for any view where an image is shown
+by itself.
+<P></P>
+<LI>
+<EM>templates/style.css</EM> - Contains <CODE>text/css</CODE> (Cascading Style Sheet)
+markup.
+<P></P></UL>
+<P>If you are using PHP-Nuke, PostNuke or phpWebThings, these three files will
+not exist.  This is called &quot;Nuke&quot; mode.  In their place you'll
+find <EM>mig_folder.php</EM> and <EM>mig_image.php</EM> which are the same basically as
+<EM>folder.html</EM> and <EM>image.html</EM> respectively.  In Nuke mode the CSS file
+is not used (Nuke systems have their own CSS already).</P>
+<P>
+<H2><A NAME="defined tags">Defined Tags</A></H2>
+<P>The following is a glossary of recognized Mig template tags, and what they
+are expanded to.</P>
+<OL>
+<LI>
+Tags for use in any template
+<DL>
+<DT><STRONG><A NAME="item_baseURL">baseURL</A></STRONG><BR>
+<DD>
+URL to call this script (Mig) again.
+<P></P>
+<DT><STRONG><A NAME="item_maintAddr">maintAddr</A></STRONG><BR>
+<DD>
+Email address of album maintainer (as defined in <EM>config.php</EM>).
+This can be customized per-folder using a <EM>mig.cf</EM> file.
+<P></P>
+<DT><STRONG><A NAME="item_version">version</A></STRONG><BR>
+<DD>
+Version number of this Mig installation.
+<P></P>
+<DT><STRONG><A NAME="item_backLink">backLink</A></STRONG><BR>
+<DD>
+This is the &quot;up one level&quot; link on each page.
+<P></P>
+<DT><STRONG><A NAME="item_currDir">currDir</A></STRONG><BR>
+<DD>
+Current directory, in URL-encoded format.
+<P></P>
+<DT><STRONG><A NAME="item_newCurrDir">newCurrDir</A></STRONG><BR>
+<DD>
+Same as &quot;currDir&quot; with leading &quot;./&quot; removed.
+<P></P>
+<DT><STRONG><A NAME="item_pageTitle">pageTitle</A></STRONG><BR>
+<DD>
+&lt;TITLE&gt; tag for this page.
+<P></P>
+<DT><STRONG><A NAME="item_youAreHere">youAreHere</A></STRONG><BR>
+<DD>
+This is the &quot;you are here&quot; path at the top of each page.
+<P></P>
+<DT><STRONG><A NAME="item_distURL">distURL</A></STRONG><BR>
+<DD>
+URL of Mig home page
+<P></P>
+<DT><STRONG><A NAME="item_description">description</A></STRONG><BR>
+<DD>
+Description of the image, taken from the comments file(s).  For folders,
+this is &lt;Bulletin&gt;.
+<P></P></DL>
+<LI>
+Tags used only in <EM>folder.html</EM> (or <EM>mig_folder.php</EM> in Nuke mode)
+<DL>
+<DT><STRONG><A NAME="item_folderList">folderList</A></STRONG><BR>
+<DD>
+Expands to a section of &lt;TABLE&gt; code which
+displays a list of folders in the current folder.
+<P></P>
+<DT><STRONG><A NAME="item_imageList">imageList</A></STRONG><BR>
+<DD>
+Expands to a section of &lt;TABLE&gt; code which
+displays a list of images in the current folder.
+<P></P></DL>
+<LI>
+Tags used only in <EM>image.html</EM> (or <EM>mig_image.php</EM> in Nuke mode)
+<DL>
+<DT><STRONG><A NAME="item_image">image</A></STRONG><BR>
+<DD>
+The current image being shown.
+<P></P>
+<DT><STRONG><A NAME="item_albumURLroot">albumURLroot</A></STRONG><BR>
+<DD>
+Root URL of the actual album where images live
+(used in &lt;IMG SRC=&quot;...&quot;&gt; HTML tags).
+<P></P>
+<DT><STRONG><A NAME="item_nextLink">nextLink</A></STRONG><BR>
+<DD>
+A link to the next item in the sequence.
+<P></P>
+<DT><STRONG><A NAME="item_prevLink">prevLink</A></STRONG><BR>
+<DD>
+A link to the previous item in the sequence.
+<P></P>
+<DT><STRONG><A NAME="item_currPos">currPos</A></STRONG><BR>
+<DD>
+Current position in the list (i.e. #5 of 7)
+<P></P>
+<DT><STRONG><A NAME="item_encodedImageURL">encodedImageURL</A></STRONG><BR>
+<DD>
+Image filename run through <CODE>rawurlencode()</CODE> in case
+there's a space embedded in it or something.
+<P></P>
+<DT><STRONG><A NAME="item_imageSize">imageSize</A></STRONG><BR>
+<DD>
+HTML that gives WIDTH=nnn and HEIGHT=nnn tags
+for the image being displayed.
+<P></P></DL>
+</OL>
+<P>
+<H2><A NAME="custom perfolder templates">Custom Per-folder Templates</A></H2>
+<P>If desired, one can define a per-folder template file.  This can be done
+with the <CODE>FolderTemplate</CODE> entity, as discussed in the &quot;mig_cf&quot;
+document.</P>
+<P>
+<H2><A NAME="managing colors">Managing Colors</A></H2>
+<P>Mig uses a Cascading Style Sheet (CSS) file to manage all of its element
+colorization.  Things like the page background, background colors for table
+cells, all are managed by the CSS file <EM>templates/style.css</EM>.</P>
+<P>I don't have the inclination or time to write a tutorial on how CSS works,
+so please see <A HREF="https://web.archive.org/web/2002/http://www.htmlhelp.com/reference/css/">http://www.htmlhelp.com/reference/css/</A> or whatever else you
+come across to figure out how CSS works.  There are some books on this
+topic available as well (try searching for &quot;CSS&quot; at Amazon.com).</P>
+<P>A basic example or two follow, though.</P>
+<P>To change color of HREF links from <CODE>#0000FF</CODE> (blue) to <CODE>#00FF00</CODE> (green):</P>
+<PRE>
+    Before:      A:link    { color: #0000FF }
+    After:       A:link    { color: #00FF00 }</PRE>
+<P>To change background color of description tables from <CODE>#CCCCFF</CODE> (grey)
+to <CODE>#FF0000</CODE> (red):</P>
+<PRE>
+    Before:
+        TD.desc {
+            color: #000000;
+            background: #CCCCFF;
+            text-align: justify;
+        }</PRE>
+<PRE>
+    After:
+        TD.desc {
+            color: #000000;
+            background: #FF0000;
+            text-align: justify;
+        }</PRE>
+<P>The &quot;BODY&quot; element controls the main background / text color
+for the pages overall.  However, Netscape seems to have forgotten the BODY
+element when implementing their CSS engine, so Netscape doesn't handle this
+correctly.  For that reason, a default coloration of white background /
+black text is hard-coded into the HTML templates in the BODY element.  If
+you want to use another colorization for BODY, feel free to do so, but be
+aware you'll need to update both <EM>templates/style.css</EM> and
+<EM>templates/*.html</EM> to do it correctly.</P>
+
+</BODY>
+
+</HTML>

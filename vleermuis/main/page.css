@@ -1,0 +1,116 @@
+body 		{
+		scrollbar-face-color: #333366; 
+		scrollbar-shadow-color: #333366; 
+		scrollbar-highlight-color: #333366; 
+		scrollbar-3dlight-color: #333366; 
+		scrollbar-darkshadow-color: #333366; 
+		scrollbar-track-color: #9999cc; 
+		scrollbar-arrow-color: #FFFFFF;
+		margin: 0;
+		background : #FFFFFF url(background.jpg) no-repeat fixed right bottom;
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+		}
+
+p, td, ul, ol, dl, li, dt, dd, blockquote 
+		{font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+		font-size: 13px; 
+		line-height: 15px;
+		font-style: normal; 
+		color: #333366;}
+
+.important	{color: #CC0000;}
+
+
+.titel		{background-color: #333366;		
+		font-size: 18px;
+		line-height: 22px;
+		font-weight: bold; 
+		color: #FFFFFF;}
+
+.titel2		{
+		font-size: 18px; 
+		line-height: 20px;
+		font-weight: bold; 
+		color: #333366;}
+
+.agenda		{background-color: #9999cc;		
+		font-size: 13px;
+		line-height: 22px;
+		font-weight: bold; 
+		color: #FFFFFF;}
+
+.subscript	{
+	font-size: 11px;
+	line-height: 11px;
+	color: #9999cc;
+	font-style: italic;
+}
+
+input		{
+		height: 22px;		
+		border: #333366 1px solid;  
+		vertical-align: middle; 		
+		color: #333366; 
+		font-family: Verdana, Arial, Helvetica, sans-serif; 
+		font-size: 12px; 
+		line-height: 16px;}
+
+textarea	{
+		border: #333366 1px solid;  
+		vertical-align: middle; 		
+		color: #333366; 
+		font-family: Verdana, Arial, Helvetica, sans-serif; 
+		font-size: 12px; 
+		line-height: 16px;}
+
+
+.zend 		{
+		background: #333366; 
+		color: #FFFFFF; 
+		text-align: center;
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 10px;}
+
+hr		{
+		line-height: 1px; 
+		color: #9999cc;}
+
+.img 		{border: solid #333333 1px;}
+
+.nonbold 	{font-weight: normal;}
+
+.bold 		{font-weight: bold;}
+
+a 		{color: #333366;}
+
+a:hover 	{color: #9999cc;}
+
+a:active 	{color: #9999CC;}
+
+
+/* ---- layout zonder frames (2026): menu links, kop bovenaan, inhoud rechts ---- */
+.pagina		{display: flex; align-items: flex-start; min-height: 100vh;}
+.menu		{flex: 0 0 165px; height: 480px; position: sticky; top: 0;
+		background: url(dasMenu.jpg) no-repeat left top;}
+.menu-logo	{position: absolute; left: 50px; top: 0; width: 105px; height: 105px;}
+.menu ul	{list-style: none; margin: 0; padding: 138px 21px 0 0; text-align: right;}
+.menu li	{margin: 0; line-height: 24px; font-size: 13px;}
+.menu a		{font-style: italic; text-decoration: none; color: #333366;
+		text-shadow: 0 0 3px #fff, 0 0 2px #fff;}
+.menu a:hover, .menu a[aria-current] {color: #9999cc; text-decoration: underline;}
+.rechts		{flex: 1; min-width: 0;}
+.kop		{display: flex; justify-content: space-between; height: 137px; background: url(bovenback.jpg) repeat-x;}
+.kop img	{display: block; border: 0;}
+.info		{padding: 0 10px 20px 0; overflow-x: auto;}
+.info img	{max-width: 100%; height: auto;}
+@media (max-width: 700px) {
+  .pagina	{display: block;}
+  .menu		{position: static; height: auto; background: #333366;}
+  .menu-logo	{display: none;}
+  .menu ul	{padding: 6px; text-align: center;}
+  .menu li	{display: inline-block; margin: 0 6px;}
+  .menu a	{color: #fff; text-shadow: none;}
+  .kop		{height: auto; overflow: hidden;}
+  .kop-rechts	{display: none;}
+  .info		{padding: 0 8px 20px;}
+}

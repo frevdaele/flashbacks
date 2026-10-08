@@ -1,0 +1,43 @@
+<style type="text/css">
+<!--
+
+BODY {
+		background-color: #333333;
+		scrollbar-face-color: #333333; 
+		scrollbar-shadow-color: #333333; 
+		scrollbar-highlight-color: #333333; 
+		scrollbar-3dlight-color: #333333; 
+		scrollbar-darkshadow-color: #333333; 
+		scrollbar-track-color: #666666; 
+		scrollbar-arrow-color: #FFFFFF;}
+
+
+p, td, body  { 
+
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	line-height: 14px;
+	color: #666666;}
+
+b {font-weight: normal;}
+
+
+A:link {text-decoration: underline; color: #666666;}
+A:visited {text-decoration: underline; color: #666666;}
+A:active {color: #FFFFFF;text-decoration: underline; color: #FFFFFF;}
+    
+
+TD.folder {
+        background: #333333;
+        text-align: left;}
+
+TD.image {
+        background: #333333;
+        text-align: center;}
+
+TD.desc {color: #FFFFFF;
+        background: #333333;
+        text-align: center;}
+
+-->
+</style>

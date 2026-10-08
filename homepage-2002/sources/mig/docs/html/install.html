@@ -1,0 +1,351 @@
+<HTML>
+<HEAD>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<TITLE>Mig Documentation - install.html</TITLE>
+<LINK REV="made" HREF="mailto:root@law.uucp">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+<!--
+
+<UL>
+
+	<UL>
+
+		<LI><A HREF="#mig  a general purpose photo gallery">Mig - A general purpose photo gallery</A></LI>
+		<LI><A HREF="#license information">License Information</A></LI>
+		<LI><A HREF="#requirements">Requirements</A></LI>
+		<LI><A HREF="#new installation">New Installation</A></LI>
+		<LI><A HREF="#upgrading">Upgrading</A></LI>
+		<LI><A HREF="#running mig under windows">Running Mig Under Windows</A></LI>
+		<LI><A HREF="#the example gallery">The Example Gallery</A></LI>
+		<LI><A HREF="#optional customization">Optional Customization</A></LI>
+		<LI><A HREF="#bug reporting">Bug Reporting</A></LI>
+		<LI><A HREF="#feature requests">Feature Requests</A></LI>
+		<LI><A HREF="#email lists">Email Lists</A></LI>
+	</UL>
+
+</UL>
+-->
+<!-- INDEX END -->
+
+<P>$Id: install.pod,v 1.13 2002/06/07 21:40:51 tangledhelix Exp $</P>
+<P>
+<H2><A NAME="mig  a general purpose photo gallery">Mig - A general purpose photo gallery</A></H2>
+<P>Copyright &copy; 2000-2002 Daniel M. Lowe</P>
+<P>
+<H2><A NAME="license information">License Information</A></H2>
+<P>This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.</P>
+<P>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</P>
+<P>You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</P>
+<P>A copy of the GPL can be found at <A HREF="https://web.archive.org/web/2002/http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</A></P>
+<P>
+<H2><A NAME="requirements">Requirements</A></H2>
+<P>Mig requires a web server which supports PHP [ <A HREF="https://web.archive.org/web/2002/http://www.php.net/">http://www.php.net/</A> ].
+At least PHP 3.0.6 is required, or any version of PHP4.
+The development platform is Apple OSX, so the code tends to assume
+a unix-like environment.  As such it may or may not work (and has not
+been tested by the author) on non-unix-like platforms.  Mig has been tested
+with Apache (and reportedly it works with Microsoft's IIS server).</P>
+<P>Windows users, please see the section labeled
+&quot;Running Mig Under Windows&quot; below.</P>
+<P>The <EM>mkGallery.pl</EM> utility requires Perl [ <A HREF="https://web.archive.org/web/2002/http://www.perl.com">http://www.perl.com</A> ].  To
+generate thumbnail images, it also requires ImageMagick
+[ <A HREF="https://web.archive.org/web/2002/http://www.imagemagick.org/">http://www.imagemagick.org/</A> ].  Neither are required to use Mig itself.</P>
+<P>The <EM>jhead</EM> utility which is called by <EM>mkGallery.pl</EM> for EXIF header
+parsing is a C source code file - it must be compiled before use.  On most
+unix-like systems this is as easy as going into the <EM>jhead</EM> directory and
+typing &quot;make&quot;.</P>
+<P>Windows users can download the pre-built <EM>jhead</EM> program from Mathias
+Wandel's site at <A HREF="https://web.archive.org/web/2002/http://www.sentex.net/~mwandel/jhead/">http://www.sentex.net/~mwandel/jhead/</A></P>
+<P>See the &quot;utilities&quot; document for more information about
+<EM>mkGallery.pl</EM> and <EM>jhead</EM>.</P>
+<P>PHP-Nuke, PostNuke, PHPWebSite and PHPWebThings users:
+see the <EM>phpnuke</EM> document.</P>
+<P>
+<H2><A NAME="new installation">New Installation</A></H2>
+<P>Read this section if you are installing Mig for the first time.  If you
+are upgrading, skip to the next section which deals with upgrading.</P>
+<OL>
+<LI>
+Create a directory for Mig to live in, somewhere the web server can read
+the files and serve them as web pages.
+<P></P>
+<LI>
+Copy the file <EM>index.php</EM> to the new Mig directory.
+<P></P>
+<LI>
+Copy the file <EM>config.php.default</EM> to the new Mig directory and call it
+<EM>config.php</EM>.  Any customization of Mig (except layout and colors) can be
+done by editing <EM>config.php</EM>.
+<P></P>
+<LI>
+Create three subdirectories called <EM>images</EM>, <EM>templates</EM> and <EM>albums</EM>
+under the new Mig directory.
+<P></P>
+<LI>
+Copy the files <EM>image.gif</EM> and <EM>no_thumb.gif</EM> from the <EM>images</EM>
+subdirectory to the new <EM>images</EM> subdirectory.
+<P></P>
+<LI>
+Copy the files <EM>image.html</EM>, <EM>folder.html</EM> and <EM>style.css</EM> from the
+<EM>templates</EM> subdirectory to the new <EM>templates</EM> subdirectory.
+<P></P>
+<LI>
+Put image files (photos, etc) into the <EM>albums</EM> subdirectory.  You can
+make subdirectories to contain different categories of images, and those
+subdirectories can contain subdirectories, and so on.  Mig doesn't place
+any restriction on how many levels deep subdirectories go.  Arrange the
+album any way you wish.  The name of each album is the name of the
+directory, so keep that in mind.  For example:
+<PRE>
+    People
+        Family
+        Friends
+    The_Zoo
+        Dolphins
+        Bears
+        Lions
+    Cars</PRE>
+<P>Notice that I used an underline character in <STRONG>The_Zoo</STRONG>.  Mig will display
+that as a space, so the album will be called <STRONG>The Zoo</STRONG> as far as visitors
+will know.  This makes things simpler since some systems make using
+underlines in directory names unfriendly.</P>
+<P>The above example ends up being these eight gallery folders:</P>
+<PRE>
+    People
+    People : Family
+    People : Friends
+    The Zoo
+    The Zoo : Dolphins
+    The Zoo : Bears
+    The Zoo : Lions
+    Cars</PRE>
+<P>Mig supports JPEG, GIF and PNG files.  So files with any of these
+extensions will be recognized:</P>
+<PRE>
+    .gif .png .jpg .jpe .jpeg</PRE>
+<P></P>
+<LI>
+Point your web browser to the newly-installed Mig and browse away!
+<P></P>
+<LI>
+If you can run Perl scripts on the commandline on your server, and you have
+Perl and ImageMagick available, use <EM>mkGallery.pl</EM> to create thumbnail
+images.  See the <EM>utilities</EM> document for more information on how.
+<P>You should create a <EM>utilities</EM> subdirectory in your Mig installation and
+copy <EM>mkGallery.pl</EM> there, as well as <EM>jhead</EM> if you plan to use
+<EM>jhead</EM>.  If Perl is somewhere other than <EM>/usr/bin/perl</EM> on your system
+you may need to modify the first line of <EM>mkGallery.pl</EM> to reflect the
+proper location of Perl.</P>
+<P>If you can't run Perl scripts, you can make your own thumbnail images in
+whatever way is handy for you (an image editing program, for example).
+In each album folder, create a subdirectory called <EM>thumbs</EM>, and put
+thumbnail images inside.  A thumbnail should have the same filename as the
+full-size image it represents.</P>
+<P>The thumbnail subdirectory is <EM>thumbs</EM> by default, but this can be
+customized (see the <CODE>$thumbSubdir</CODE> option in <EM>config.php</EM>).</P>
+<P></P></OL>
+<P>
+<H2><A NAME="upgrading">Upgrading</A></H2>
+<P>If you are upgrading from a previous version of Mig, follow these steps:</P>
+<OL>
+<LI>
+Copy the <EM>index.php</EM> file to the Mig directory.  This should replace the
+<EM>index.php</EM> which was already there.  If the existing file was called
+<EM>index.php3</EM>, then the new file should also be called <EM>index.php3</EM>.
+<P></P>
+<LI>
+Starting with version 1.3.1, <EM>mig.cfg</EM> is now called <EM>config.php</EM>.
+If <EM>mig.cfg</EM> is present, rename it to <EM>config.php</EM>.  The distribution
+comes with <EM>config.php.default</EM>, which is the new default config file.
+<EM>config.php.default</EM> is just an example.  There is no need to copy it over
+to the Mig directory.
+<P></P>
+<LI>
+Starting with version 1.3.2, the <EM>funcs.php</EM> and <EM>lang.php</EM> files are no
+longer used.  If they are prsent, delete them.  All code is now contained in
+<EM>index.php</EM>.  Mig will not fail if <EM>funcs.php</EM> or <EM>lang.php</EM> are
+present, but it's sloppy to leave them laying around.
+<P></P>
+<LI>
+If you wish to use <EM>mkGallery.pl</EM>, copy mkGallery.pl from the <EM>utilities</EM>
+directory to the <EM>utilities</EM> subdirectory of your Mig installation.  You
+may need to modify the first line if Perl is somewhere other than
+<EM>/usr/bin/perl</EM> on your system.
+<P></P>
+<LI>
+If you wish to use <EM>jhead</EM> (note that using the EXIF functions of
+<EM>mkGallery.pl</EM> implies using <EM>jhead</EM>), you may wish to compile a new copy
+of <EM>jhead</EM> if it's a newer version than you're using now (to find out when
+<EM>jhead</EM> was last updated, check the &quot;changelog&quot; document).
+<P>If you want <EM>mkGallery.pl</EM> to be able to use <EM>jhead</EM>, put <EM>jhead</EM> in the
+<EM>utilities</EM> subdirectory of your Mig installation with <EM>mkGallery.pl</EM>.</P>
+<P></P></OL>
+<P>
+<H2><A NAME="running mig under windows">Running Mig Under Windows</A></H2>
+<P>Mig can run under Windows (so I'm told) as long as the web server supports
+PHP.  The Windows version of PHP is available from <A HREF="https://web.archive.org/web/2002/http://www.php.net/">http://www.php.net/</A></P>
+<P>Mig is reported to work with IIS, Personal Web Server, and the Windows port
+of Apache.  One user noted that a fairly recent version of PHP is needed
+for it to work, so if you're having trouble, make sure you're using the
+most recent release of PHP.</P>
+<P>Another user reported that having a comma (,) in the directory name of any
+album would cause problems, so avoid using commas.</P>
+<P>
+<H2><A NAME="the example gallery">The Example Gallery</A></H2>
+<P>If you want to see an example gallery (that is, install one on your system
+and examine the files that it contains), you can download one from the Mig
+project page at <A HREF="https://web.archive.org/web/2002/http://sf.net/projects/mig/">http://sf.net/projects/mig/</A> (look in the
+&quot;mig-extras&quot; section in the project files listing).  After
+downloading the file, unpack it in the albums sub directory and it should
+appear as &quot;Mig Example Gallery&quot;.</P>
+<P>
+<H2><A NAME="optional customization">Optional Customization</A></H2>
+<OL>
+<LI><STRONG><A NAME="item_templates">HTML templates (and colors)</A></STRONG><BR>
+
+Mig is template-based.  Any change to layout or colors can be achieved by
+modifying the template files in the <EM>templates</EM> subdirectory.  See the
+<EM>templates</EM> document for more information.
+<P>A per-folder custom template can be used in any given folder.  See the
+<CODE>FolderTemplate</CODE> section of the <EM>mig_cf</EM> document for more information.</P>
+<P></P>
+<LI><STRONG><A NAME="item_Comments">Comments</A></STRONG><BR>
+
+A comment can be attached to any image.  Comments are stored in a
+file called <EM>mig.cf</EM> in the same directory as the image.  See the
+<EM>mig_cf</EM> document for information about the format of <EM>mig.cf</EM> files.
+<P>Comments are shown in a box below the image in image views.  In
+thumbnail views, they are shown as the ALT tag text.  (That behavior can
+be suppressed by setting <CODE>$suppressAltTags</CODE> to <CODE>TRUE</CODE> in <EM>config.php</EM>).</P>
+<P>As an example, let's say you have files <EM>house.jpg</EM>, <EM>car.gif</EM> and
+<EM>dog.jpg</EM>.  Let's say you wanted a comment on the house and the dog,
+but nothing in particular to say about the car.  Add this to <EM>mig.cf</EM>:</P>
+<PRE>
+    &lt;Comment &quot;house.jpg&quot;&gt;
+    This is my house, which I bought in the fall of 1998.
+    &lt;/Comment&gt;</PRE>
+<PRE>
+    &lt;Comment &quot;dog.jpg&quot;&gt;
+    This is the dog we had when I was growing up.  She was a lot of
+    fun!  Sadly, she died when I was 12 years old (she had cancer).
+    We had other dogs afterward, but none of them were as much fun.
+    &lt;/Comment&gt;</PRE>
+<P>(<EM>mkGallery.pl</EM> users, see the <CODE>-c</CODE> option which handles comments.)</P>
+<P>The description can be multiple lines, as long as it's enclosed inside the
+&lt;comment&gt;...&lt;/comment&gt; structure.  Tags such as
+&lt;comment&gt; must be at the start of a new line.</P>
+<P></P>
+<LI><STRONG><A NAME="item_EXIF_data">EXIF data</A></STRONG><BR>
+
+Many images contain EXIF header data.  <EM>mkGallery.pl</EM> can extract this
+data using <EM>jhead</EM>.  See the <EM>utilities</EM> document for details.
+<P>EXIF data generally contains information such as shutter speed, aperture,
+ISO rating, the original shooting date and time, and sometimes comments.
+Mig can read some, but not all, of this data.  Future versions of Mig may
+understand more of the data than it currently does.</P>
+<P>By default Mig only shows embedded comments.  To show more, adjust the
+format string <CODE>$exifFormatString</CODE> found in <EM>config.php</EM>.  There are
+examples in that file that explain how the formatting works.</P>
+<P>Note that most graphic editors destroy EXIF blocks!  They don't know how to
+write them so when they save images, they are simply not written back into
+the file.</P>
+<P></P>
+<LI><STRONG><A NAME="item_Item_sorting">Item sorting</A></STRONG><BR>
+
+Items can be sorted in a custom order if desired (rather than relying on
+the default alphabetical order).  To do this define a &lt;sort&gt; block
+in <EM>mig.cf</EM>.  See the <EM>mig_cf</EM> document for details.
+<P></P>
+<LI><STRONG><A NAME="item_Languages_other_than_English">Languages other than English</A></STRONG><BR>
+
+Mig has support for other languages - however, it only supports those
+languages someone has supplied translations for.  If you want to translate
+it to another language, please get in touch with me and I'll be glad to add
+your translations to the available list of languages.
+<P>See <EM>config.php.default</EM> for more information - Mig now supports English,
+French, German, Norwegian, Portugese, Finnish, Romanian, Russian
+(Windows-1251 and KOI8-R), Turkish, Swedish, Danish, Italian, Spanish,
+Slovak, Dutch, Polish, Estonian and Japanese (ISO-2022-JP).</P>
+<P></P>
+<LI><STRONG><A NAME="item_Pop%2Dup_windows">Pop-up windows</A></STRONG><BR>
+
+Pop-up windows can be used (see the <CODE>$imagePopup</CODE> option in
+<EM>config.php</EM>).
+<P></P>
+<LI><STRONG><A NAME="item_Pagination_of_large_galleries">Pagination of large galleries</A></STRONG><BR>
+
+Sometimes a gallery gets so large, fitting all the thumbnails on one page
+becomes a problem (think of a gallery with 500 images).  To resolve this,
+Mig paginates large galleries.  By default, any gallery with more than 20
+images will go into a paged mode (4 images across, in 5 rows).
+<P>This can be controlled using two options in <EM>config.php</EM>:
+<CODE>$maxThumbColumns</CODE> and <CODE>$maxThumbRows</CODE>.  Their names are
+self-explanatory.  Set <CODE>$maxThumbColumns</CODE> to the maximum number of columns
+desired (how many thumbnails across from left to right in one row).  Set
+<CODE>$maxThumbRows</CODE> to the maximum number of rows per page/screen.  The
+defaults are 4 columns and 5 rows (for 20 images per page).</P>
+<P></P>
+<LI><STRONG><A NAME="item_Using_random_thumbnails_instead_of_folder_icons">Using random thumbnails instead of folder icons</A></STRONG><BR>
+
+Instead of using the generic folder icon for folder views, Mig can use a
+randomly selected thumbnail from the folder as the icon.  To turn this
+behavior on, set <CODE>$randomFolderThumbs</CODE> to <CODE>TRUE</CODE> in <EM>config.php</EM>.
+(See also <CODE>$folderNameLength</CODE>.)
+<P>If the folder itself contains only other folders, and no images, Mig will
+traverse subdirectories until it finds a usable thumbnail to use as an
+icon.  So the only time the generic icon will be used is in a situation
+where there is a folder that contains no thumbnails, whose subfolders and
+their subfolders, etc, contain no thumbnails.  In other words, only a
+useless folder branch would result in the generic folder icon being shown.</P>
+<P></P></OL>
+<P>
+<H2><A NAME="bug reporting">Bug Reporting</A></H2>
+<P>To report a bug, or view existing bug reports, go to:</P>
+<PRE>
+    <A HREF="https://web.archive.org/web/2002/http://sourceforge.net/tracker/?group_id=24365">http://sourceforge.net/tracker/?group_id=24365</A></PRE>
+<P>
+<H2><A NAME="feature requests">Feature Requests</A></H2>
+<P>To request a feature, or view existing feature requests, go to:</P>
+<PRE>
+    <A HREF="https://web.archive.org/web/2002/http://sourceforge.net/tracker/?group_id=24365">http://sourceforge.net/tracker/?group_id=24365</A></PRE>
+<P>
+<H2><A NAME="email lists">Email Lists</A></H2>
+<OL>
+<LI><STRONG><A NAME="item_mig%2Dannounce">mig-announce</A></STRONG><BR>
+
+mig-announce is an announcements-only list.  Generally speaking that
+means the only traffic it gets are announcements of new versions posted
+by the author.
+<PRE>
+    <A HREF="https://web.archive.org/web/2002/http://lists.sourceforge.net/lists/listinfo/mig-announce">http://lists.sourceforge.net/lists/listinfo/mig-announce</A></PRE>
+<P></P>
+<LI><STRONG><A NAME="item_mig%2Dusers">mig-users</A></STRONG><BR>
+
+mig-users is a general discussion list.  Any Mig-related topic can be
+discussed on this list.
+<PRE>
+    <A HREF="https://web.archive.org/web/2002/http://lists.sourceforge.net/lists/listinfo/mig-users">http://lists.sourceforge.net/lists/listinfo/mig-users</A></PRE>
+<P></P>
+<LI><STRONG><A NAME="item_mig%2Ddevel">mig-devel</A></STRONG><BR>
+
+mig-devel is for people interested in development work related to Mig.
+<PRE>
+    <A HREF="https://web.archive.org/web/2002/http://lists.sourceforge.net/lists/listinfo/mig-devel">http://lists.sourceforge.net/lists/listinfo/mig-devel</A></PRE>
+<P></P></OL>
+
+</BODY>
+
+</HTML>

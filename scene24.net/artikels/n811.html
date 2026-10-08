@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Mail crasht Mail | scene24.net</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="../assets/favicon.ico">
+</head>
+<body>
+<div id="content">
+<header class="kop">
+<a class="logo" href="../index.html" title="scene24.net"><img src="../assets/logo.gif" alt="scene24.net" width="200" height="70"></a>
+<nav class="menu"><a href="../artikels.html" aria-current="page">Artikels</a> <a href="../films.html">Films</a></nav>
+</header>
+<article class="item" id="post-n811">
+<h1 class="title">Mail crasht Mail</h1>
+<p class="subtitle">vrijdag 7 januari 2005 | Apple</p>
+<p>Vandaag ontving ik een mailtje met een corrupt pdf-bestand van een collega. <a href="https://web.archive.org/web/2005/http://www.apple.com/macosx/features/mail/">Mail</a>, het standaard email programma voor <a href="https://web.archive.org/web/2005/http://www.apple.com/macosx/">OS X</a>, crashte volledig. Een <i>Force quit</i> (<a title="UNIX man page" href="https://web.archive.org/web/2005/http://www.rt.com/man/kill.1.html">kill</a> voor de techies) was de enige uitweg. Nu was het probleem dat die mail, nadat ik het programma had heropgestart, nog steeds in mijn inbox zat, ongelezen. Van zodra ik hem aanklikte om te verwijderen, had ik het weer zitten. Wat nu?</p>
+
+<p>Hou je vast. It's ugly:</p>
+<ol>
+<li>Sluit Mail</li>
+<li>Ga naar de map 'Mail' in de Library van je User-folder. Bij mij is dat <b>/Users/fre/Library/Mail/</b>.</li>
+<li>Zoek de map met de naam van je e-mailaccount waar de corrupte mail zich bevindt (bv. <b>../Mail//</b>)</li>
+<li>Klik met de rechtermuisknop op het icoon van <b>INBOX.mbox</b> en kies voor 'Show Package Contents'. Er zal een verborgen mapje openen met de inhoud ervan.</li>
+<li>Open het bestand <b>mbox</b> in een teksteditor zoals <a href="https://web.archive.org/web/2005/http://www.codingmonkeys.de/subethaedit/">SubEthaEdit</a>. Je zal alle mails uit je inbox in leesbare tekst herkennen. Nu komt het er gewoon op aan van de corrupte mail op te sporen en het bijhorende attachment (te herkennen aan de blok rare tekens) te selecteren en te verwijderen. Bewaar het bestand.</li>
+<li>Herstart Mail. Alle mails uit je inbox zullen als ongelezen verschijnen. De corrupte email kan je nu &#8212; zonder bijlage weliswaar &#8212; alsnog lezen.</li>
+</ol>
+
+<p>Extra noot: Nadat ik via webmail het 14Kb kleine onding toch op mijn harde schijf had gekregen, bleek uiteindelijk dat het hele systeem bleef hangen als ik de file alleen nog maar durfde aan te raken. Dat is overigens niet zo bijzonder: er zijn wel meerdere manieren om <a href="https://web.archive.org/web/2005/http://www.apple.com/macosx/features/finder/">Finder</a> volledig lam te leggen. Open eens een zipje met 1000 foto's op je desktop bijvoorbeeld... Gelukkig is er dan nog zoiets als good old <a href="https://web.archive.org/web/2005/http://www.apple.com/macosx/features/unix/">Terminal</a> (rm * ~/Desktop/).</p>
+
+<p><b>UPDATE</b>: Op het domme gezicht past de gebalde vuist. Lees de comment van Kasper. Dammit...</p>
+</article>
+<section class="reacties"><h3>Reacties</h3>
+<div class="comment"><p class="commentheader">Kasper op 7 januari 2005</p><p>Ik heb dit ook al eens meegemaakt, en er is toch wel een licht simpelere oplossing!<br />
+Je kan immers dubbelklikken op de dividerbar tussen de lijst met mails en de mail zelf zodat de mail niet meer zichtbaar is (of je dragged het mailvenster zelf helemaal dicht).<br />
+Zodoende zal de mail niet gevisualiseerd worden en kan je hem gerust selecteren en verwijderen.</p></div>
+<div class="comment"><p class="commentheader">Frederik Vandaele op 7 januari 2005</p><p>Doh!</p></div>
+<div class="comment"><p class="commentheader"><a href="https://web.archive.org/web/2005/http://bytewarrior.madoka.be/b2/" rel="external nofollow">Ben</a> op 8 januari 2005</p><p>Ik heb zoiets ook al enkele keren meegemaakt (met Thunderbird dan). In TB kan je gewoon rechtsklikken op de mail (dan opent die niet) en dan zo verwijderen...</p></div>
+</section>
+<nav class="bladeren"><a class="vorige" href="n810.html">&laquo; Microsoft vs Spyware</a><a class="volgende" href="n813.html">Nikon of Canon: opgelost! &raquo;</a></nav><div class="itemDivider">&nbsp;</div>
+<footer id="footer">
+<p><img src="../assets/madeonamac.gif" alt="Made on a Mac" width="88" height="31"></p>
+<p>Archief van scene24.net, het weblog van Frederik Vandaele (2002-2012).</p>
+</footer>
+</div>
+</body>
+</html>

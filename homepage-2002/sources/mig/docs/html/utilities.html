@@ -1,0 +1,194 @@
+<HTML>
+<HEAD>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<TITLE>Mig Documentation - utilities.html</TITLE>
+<LINK REV="made" HREF="mailto:root@law.uucp">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+<!--
+
+<UL>
+
+	<UL>
+
+		<LI><A HREF="#bundled utilities">Bundled Utilities</A></LI>
+		<LI><A HREF="#mkgallery.pl">mkGallery.pl</A></LI>
+		<LI><A HREF="#a note about pixel sizes">A note about pixel sizes</A></LI>
+		<LI><A HREF="#a note about quality levels">A note about quality levels</A></LI>
+		<LI><A HREF="#thumbnails">Thumbnails</A></LI>
+		<LI><A HREF="#interactive mode">Interactive mode</A></LI>
+		<LI><A HREF="#newonly mode">New-only mode</A></LI>
+		<LI><A HREF="#recursive mode">Recursive mode</A></LI>
+		<LI><A HREF="#jhead">jhead</A></LI>
+	</UL>
+
+</UL>
+-->
+<!-- INDEX END -->
+
+<P>$Id: utilities.pod,v 1.4 2002/05/14 04:21:01 tangledhelix Exp $</P>
+<P>
+<H2><A NAME="bundled utilities">Bundled Utilities</A></H2>
+<P><EM>mkGallery.pl</EM> - Create a gallery from images in the current directory.</P>
+<P><EM>jhead</EM> - Extracts EXIF header information from JPEG files.  (<EM>jhead</EM> is
+used by <EM>mkGallery.pl</EM>, so you don't need to use it directly.  However,
+you can if you want to.  It has a lot of nice features).</P>
+<P>
+<H2><A NAME="mkgallery.pl">mkGallery.pl</A></H2>
+<P><EM>mkGallery.pl</EM> can do three things:</P>
+<P>1. Take a directory full of images and create thumbnails for them.</P>
+<P>2. Read EXIF header information from image files and cache it in
+text files for Mig to use.</P>
+<P>3. Create blank comment templates in <EM>mig.cf</EM> files.</P>
+<P>It can do all of them at the same time, too.  It can accept a list of
+images to work with, or simply process all images in the current directory.
+It can also recurse directories and do an entire album.</P>
+<P>(Note that <EM>mkGallery.pl</EM> requires Perl.  Perl is not required for Mig
+itself.  It is required only to use the <EM>mkGallery.pl</EM> utility.
+To generate thumbnails, the <EM>convert</EM> utility from
+the ImageMagick suite is also required.)</P>
+<P><EM>mkGallery.pl</EM> uses the following Perl modules.  When I first wrote
+<EM>mkGallery.pl</EM> I was using Perl 5.005_03, and these were all included (no
+extra installations were needed).</P>
+<PRE>
+    strict
+    Cwd
+    File::Basename
+    File::Find
+    Getopt::Std</PRE>
+<P><EM>mkGallery.pl</EM> has not been tested under Microsoft Windows to my knowledge.</P>
+<PRE>
+  Usage:
+    mkGallery.pl [ -h ] [ -a ] [ -w ] [ -t ] [ -e ] [ -c ] [ -i ]
+        [ -s &lt;size&gt; ] [ -q &lt;quality&gt; ] [ -M &lt;type&gt; ] [ -m &lt;label&gt; ]
+        [ -n ] [ -r ] [ -d ] [ -D &lt;dir&gt; ] [ -E &lt;ext&gt; ]
+        [ &lt;file1&gt; &lt;file2&gt; &lt;...&gt; ]</PRE>
+<PRE>
+      -h : Prints this help message.
+      -a : Process all image files in current directory.
+      -w : Turn over-write on.  By default, files written such
+           as the EXIF file will be appended to rather than
+           over-written.  Using &quot;-w&quot; indicates the file should
+           be over-written instead.
+      -t : Generate thumbnail images.
+      -e : Build &quot;exif.inf&quot; file.  You must compile the jhead
+           utility (included) before you can use the -e option.
+      -c : Generate blank comments for uncommented images.
+      -i : &quot;Interactive&quot; mode for comments
+      -s : Set pixel size for thumbnails.
+      -q : Set quality level for thumbnails.
+      -M : Define type of &quot;prefix&quot; or &quot;suffix&quot;.
+      -m : thumbnail marker label (default &quot;th&quot;).
+      -n : Only process thumbnails that don't exist (new-only).
+           Will also process thumbnails which are older than the
+           full-size images they are associated with.
+      -r : Recursive mode - process this folder as well as any
+           folders and subfolders beneath it.
+      -d : Use thumbnail subdirectories (instead of using _th, etc).
+      -D : Name of thumbnail subdirectory to use (default is &quot;thumbs&quot; or
+           whatever is in your config.php file).
+      -E : File extension to use for thumbnails.</PRE>
+<PRE>
+    * If creating thumbnails, &quot;convert&quot; must be in your $PATH.
+    * This program supports JPEG, PNG and GIF formats.
+    * The &quot;-e&quot; feature only supports JPEG files.
+      Mig - <A HREF="https://web.archive.org/web/2002/http://mig.sourceforge.net/">http://mig.sourceforge.net/</A></PRE>
+<P>
+<H2><A NAME="a note about pixel sizes">A note about pixel sizes</A></H2>
+<P>ImageMagick will be given a geometry of <CODE>SIZExSIZE</CODE> where <CODE>SIZE</CODE> is the
+value passed to <EM>mkGallery.pl</EM> with the <CODE>-s</CODE> flag.  For instance,
+specifying <CODE>-s 250</CODE> will give ImageMagick a geometry of <CODE>250x250</CODE>.  This
+means it will create a thumbnail image where the maximum value of height
+(or the maximum value of width) is 250 pixels.  It will not exceed that
+value for either width or height.  However, it will maintain the aspect
+ratio of the image.</P>
+<P>Here are some examples I got from testing using the default setting which
+is 100.</P>
+<PRE>
+  Original size     Thumbnail size</PRE>
+<PRE>
+    1280 x 960        100 x  75
+     505 x 250        100 x  49
+     347 x 202        100 x  58
+     160 x 205         78 x 100</PRE>
+<P>
+<H2><A NAME="a note about quality levels">A note about quality levels</A></H2>
+<P>Some image formats such as JPEG can have varying quality levels.  The
+default level is 50 but any value from 1 to 100 is valid.  The
+higher the number, the better the quality of the thumbnail.  I have found
+that 50 is a good number and produces a fairly clear thumbnail from even
+large detailed photographs yet still keeping a very good file size
+(usually below 2.5K).</P>
+<P>A quality level can be specified with <CODE>-q number</CODE>.</P>
+<P>
+<H2><A NAME="thumbnails">Thumbnails</A></H2>
+<P>Thumbnails are stored in a subdirectory called <EM>thumbs</EM> by
+default.  (This can be changed - see the <CODE>$thumbSubdir</CODE> option in
+<EM>config.php</EM>.)</P>
+<P>A thumbnail has the same filename as the full-size image it represents.
+An image called <EM>img_4190.jpg</EM> would have a thumbnail file
+called <EM>thumbs/img_4190.jpg</EM>.</P>
+<P>It is not necessary to create the directories ahead of time -
+<EM>mkGallery.pl</EM> will create any directories it needs if they don't already
+exist.</P>
+<P>
+<H2><A NAME="interactive mode">Interactive mode</A></H2>
+<P>When using the <CODE>-c</CODE> option to generate comment fields in <EM>mig.cf</EM>, you can
+also optionally specify <CODE>-i</CODE> or Interactive mode.  Basically all this will
+do is prompt for each image which does not already have a comment, and
+you can (optionally) type in a comment for that image.  If you don't want
+to do so, just hit <CODE>Enter</CODE> and that image will be skipped - <EM>mkGallery.pl</EM>
+will move along to the next one in the list.</P>
+<P>
+<H2><A NAME="newonly mode">New-only mode</A></H2>
+<P>The new-only mode (<CODE>-n</CODE>) basically follows this set of rules.</P>
+<P>1. If an image file exists without a thumbnail associated with it,
+generate a thumbnail for it.</P>
+<P>2. If an image file exists, has a thumbnail, but is newer than its
+thumbnail file, re-generate the thumbnail.</P>
+<P>If <CODE>-n</CODE> is not specified, a new thumbnail will be generated for every
+image.</P>
+<P>
+<H2><A NAME="recursive mode">Recursive mode</A></H2>
+<P>Recursive mode makes it simple to do large chunks of an album.  For
+example, if a new folder has been added called <EM>Travel</EM> and there are a
+total of 17 folders that are located underneath it (as subdirectories, or
+sub-subdirectories), handling each one would be tedious.  It's easier to
+just go to the top of the tree you want to work on (in this case <EM>Travel</EM>)
+and invoke <EM>mkGallery.pl</EM> with the recursive flag (<CODE>-r</CODE>).</P>
+<P>New users can simply go to their root (<EM>albums</EM>) and invoke <CODE>mkGallery.pl
+-art</CODE>, and <EM>mkGallery.pl</EM> will generate thumbnails for everything in the
+entire gallery.</P>
+<P>Personally I find <CODE>-rant</CODE> to be the most useful combination of modes.
+It's also easy to remember.</P>
+<P>Recursive mode works with all of the action modes (<CODE>-c</CODE>, <CODE>-e</CODE>, <CODE>-t</CODE>).</P>
+<P>
+<H2><A NAME="jhead">jhead</A></H2>
+<P><EM>jhead</EM> was written by Matthias Wandel and can be found at:</P>
+<PRE>
+    <A HREF="https://web.archive.org/web/2002/http://www.sentex.net/~mwandel/jhead/index.html">http://www.sentex.net/~mwandel/jhead/index.html</A></PRE>
+<P>It is included here but I take no credit for the code.  Matthias however
+deserves lots of credit for it, as it's incredibly useful!  Feel free to
+drop Matthias a line and let him know his code is appreciated.  His email
+address is available at the URL shown above.</P>
+<P><EM>jhead</EM> is a C program, and must be compiled before it can be used.  On
+most unix-like systems, that's as easy as going into the <EM>jhead</EM> directory
+and typing &quot;make&quot;.  When make is finished, there should be a
+<EM>jhead</EM> file, which you can copy to some other directory for safekeeping.</P>
+<P>The makefile for <EM>jhead</EM> assumes <EM>gcc</EM> is available.  If that's not
+the case, edit <EM>Makefile</EM> to point to your compiler.  I've successfully
+built <EM>jhead</EM> on systems running Linux, FreeBSD, Solaris and Apple OSX.</P>
+<P>Windows users should download the pre-built Windows version of <EM>jhead</EM>
+available at the URL above.</P>
+<P><EM>jhead</EM> should be placed in the <EM>utilities</EM> subdirectory of your Mig
+installation.</P>
+<P>(<EM>jhead</EM> is not something you need to run directly - it is used by
+<EM>mkGallery.pl</EM> if you invoke <EM>mkGallery.pl</EM> with the <CODE>-e</CODE> flag.)</P>
+
+</BODY>
+
+</HTML>

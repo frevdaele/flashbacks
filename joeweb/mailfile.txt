@@ -1,0 +1,5 @@
+$in{MESSAGE} 
+
+
+$in{NAAM} 
+$in{MAILFROM}
